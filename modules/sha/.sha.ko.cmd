@@ -1,0 +1,1 @@
+cmd_/home/jivan/fyp/modules/sha/sha.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000 -T ./scripts/module-common.lds  --build-id  -o /home/jivan/fyp/modules/sha/sha.ko /home/jivan/fyp/modules/sha/sha.o /home/jivan/fyp/modules/sha/sha.mod.o ;  true
