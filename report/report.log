@@ -1,0 +1,84 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.3.31)  2 APR 2019 23:47
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**report.tex
+(./report.tex
+LaTeX2e <2018-12-01>
+(/usr/local/bin/texlive/2018/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
+(/usr/local/bin/texlive/2018/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(./report.aux)
+\openout1 = `report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+
+Overfull \hbox (16.20956pt too wide) in paragraph at lines 22--22
+[]\OT1/cmr/bx/n/14.4 CLKscrew: Ex-pos-ing the Per-ils of Security-Oblivious
+ []
+
+
+Overfull \hbox (0.93951pt too wide) in paragraph at lines 26--26
+\OT1/cmr/bx/n/14.4 Operating-Performance-Point Black-list-ing for Mit-
+ []
+
+
+Overfull \hbox (17.53114pt too wide) in paragraph at lines 26--26
+\OT1/cmr/bx/n/14.4 i-gat-ing Power-Management Se-cu-rity At-tacks (Adrian
+ []
+
+
+Overfull \hbox (11.88792pt too wide) in paragraph at lines 36--36
+[]\OT1/cmr/bx/n/14.4 Determining un-sta-ble OPPs (op-er-at-ing per-for-mance
+ []
+
+[1
+
+{/usr/local/bin/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \vbox (98.16673pt too high) has occurred while \output is active []
+
+
+[2] (./report.aux) ) 
+Here is how much of TeX's memory you used:
+ 211 strings out of 493865
+ 2296 string characters out of 6156277
+ 58477 words of memory out of 5000000
+ 4005 multiletter control sequences out of 15000+600000
+ 5456 words of font info for 20 fonts, out of 8000000 for 9000
+ 417 hyphenation exceptions out of 8191
+ 22i,4n,19p,282b,107s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/bin/texlive/2018/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmbx12.pfb></usr/local/bin/texlive/2018/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr12.pfb>
+Output written on report.pdf (2 pages, 29521 bytes).
+PDF statistics:
+ 19 PDF objects out of 1000 (max. 8388607)
+ 12 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
