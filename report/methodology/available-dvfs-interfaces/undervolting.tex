@@ -21,10 +21,13 @@ scaling interface in their Intel Core processors, though a closed-source
 Windows utility called ThrottleStop \cite{throttlestop} exists to control DVFS
 parameters. This utility has been reverse-engineered \cite{elersicDoc},
 revealing that a model-specific register (MSR) exists to read and write settings
-related to voltage scaling; specifically, the MSR with address 0x150 acts as an
+related to voltage scaling. Specifically, the MSR with address 0x150 acts as an
 interface for voltage scaling, though this is also not officially documented by
 Intel in \cite[Volume 4, §2.13]{intelDevManual}, as would be expected.
 
-A front-end utility called `undervolt` \cite{whewellUndervolt} written in Python
-exists as reference implementation for the interface as described in
-\cite{elersicDoc}. We use `undervolt` in [SECTION - Determining unstable OPPs].
+Using this interface, it is possible to adjust the voltage offset from the base
+voltage in units of $\frac{1}{1024}$ volts. The voltage offset number used by
+the MSR is an 11-bit signed integer, thus allowing a maximum voltage offset of
+$\pm{1}$ volts. A front-end utility called \code{undervolt} \cite{whewellUndervolt}
+has been developed in Python to more easily use the interface described in
+\cite{elersicDoc}. We use \code{undervolt} in §\ref{sec:unstableOPPs}.
