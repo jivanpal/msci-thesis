@@ -1,16 +1,23 @@
-\section{DVFS (dynamic voltage and frequency scaling)}
+\section{Dynamic voltage and frequency scaling}
 
-DVFS (dynamic voltage and frequency scaling) allows the adjustment of the
-following aspects of processor cores via software:
+DVFS (dynamic voltage and frequency scaling) is a feature of almost all
+contemporary devices that allows the following aspects of their CPU cores to be
+adjusted via software (as opposed to needing to alter such parameters directly
+via hardware):
 \begin{itemize}
-    \item the voltage supplied to them
-    \item their clock speed (frequency)
+    \item the voltage supplied to them; and
+    \item their frequency/clock speed.
 \end{itemize}
+
 These parameters can each be:
 \begin{itemize}
-    \item decreased in order to decrease energy consumption
-    \item increased in order to increase computational power/speed
+    \item decreased in order to decrease energy consumption; or
+    \item increased in order to increase computational power/speed.
 \end{itemize}
-These parameters are dynamically adjusted via software depending on demand to
-balance the trade-off between energy efficiency and computing power.
+
+The voltage and frequency of a device's CPU cores can thus be dynamically
+adjusted via software depending on the current computation demand in order to
+balance the trade-off between energy efficiency and computational power; a
+device can afford itself the ability to perform complex, labour-intensive tasks
+when necessary, whilst using as little power as possible at other times.
 
