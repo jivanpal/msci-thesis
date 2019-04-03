@@ -1,1 +1,16 @@
 \subsection{Overclocking}
+
+Can we overclock?
+
+Intel i5-4590 (Haswell), 3.4GHz base clock, 3.7GHz “turbo” mode.
+
+Intel P-states (performance states) managed internally by the CPU itself (“HWP”
+implemented in Linux `intel\_pstate` driver), not by the OS, so we cannot specify
+which P-state to use. :-(
+
+We revert to the `acpi\_cpufreq` driver to allow us to explicitly set the CPU
+frequency via the `cpupower` command. :-)
+
+Only certain frequencies available, not as granular as we would like; increments
+of 100 MHz or 200 MHz.
+

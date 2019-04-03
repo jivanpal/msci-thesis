@@ -1,1 +1,15 @@
 \section{Tools}
+
+Generate and save some random data
+Compute its SHA-1 hash correctly in a stable state
+Attempt to compute the SHA-1 hash again at different OPPs until we see an
+incorrect hash is computed. The machine crashes before we get the chance to see
+the computation, so we need to inject the fault at a lower level in order to
+change the voltage in shorter bursts.
+
+We create a custom `sha1sum` binary which changes the core voltage during its
+execution.
+Need to execute in kernel mode so that MSRs can be read/written in order to
+change the voltage.
+We create a custom kernel module for this purpose which computes SHA-1 hash
+when inserted into the kernel via `insmod`.

@@ -1,1 +1,11 @@
 \subsection{Undervolting}
+
+Can we undervolt?
+
+Intel i5-4590, appears to have base voltage of 8.8 volts.
+
+Model-specific registers (MSRs) exist for controlling voltage offset, but no
+documentation is provided by Intel regarding this!
+No matter — someone (Miha Eleršič) reverse-engineered Throttlestop, and someone
+else (George Whewell) provided a nice frontend to change the voltage offsets.
+Undervolting is possible in increments of ~1 millivolt.

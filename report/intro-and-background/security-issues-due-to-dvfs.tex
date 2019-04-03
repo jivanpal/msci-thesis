@@ -1,1 +1,16 @@
 \section{Security issues due to DVFS}
+
+CPUs contain flip-flops, which are used to store and propagate state information
+inside the CPU.
+If the next flip-flop in a series receives the clock pulse before its input
+changes, it will incorrectly propagate a flipped bit.
+Perhaps an attacker can force such behaviour to occur?
+
+Undervolting and overclocking do the trick!
+Overclocking shortens clock cycles.
+Undervolting causes it to take more time for a signal to propagate from one
+flip-flop to the next.
+Fault occurs if $T_{\mathrm{clk}}$ is sufficiently small compared to
+$T_{\mathrm{max\_path}}$.
+
+
