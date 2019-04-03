@@ -11,3 +11,20 @@ documentation is provided by Intel regarding this!
 No matter — someone (Miha Eleršič) reverse-engineered Throttlestop, and someone
 else (George Whewell) provided a nice frontend to change the voltage offsets.
 Undervolting is possible in increments of ~1 millivolt.
+
+====
+
+\subsection{Voltage scaling}
+
+Unfortunately, Intel does not seem to provide any documentation for the voltage
+scaling interface in their Intel Core processors, though a closed-source
+Windows utility called ThrottleStop \cite{throttlestop} exists to control DVFS
+parameters. This utility has been reverse-engineered \cite{elersicDoc},
+revealing that a model-specific register (MSR) exists to read and write settings
+related to voltage scaling; specifically, the MSR with address 0x150 acts as an
+interface for voltage scaling, though this is also not officially documented by
+Intel in \cite[Volume 4, §2.13]{intelDevManual}, as would be expected.
+
+A front-end utility called `undervolt` \cite{whewellUndervolt} written in Python
+exists as reference implementation for the interface as described in
+\cite{elersicDoc}. We use `undervolt` in [SECTION - Determining unstable OPPs].
