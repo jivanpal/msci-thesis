@@ -1,9 +1,57 @@
 \section{Determining unstable operating performance points}
 \label{sec:unstableOPPs}
 
-[TBD]
+We want to determine which OPPs are stable, and which OPPs are unstable, i.e.
+those for which the system operates normally, and those which cause the system
+to crash, respectively. Such a crash typically manifests as a kernel panic.
+In particular, we would like to know which specific OPP lies on the boundary
+between the stable realm and the unstable realm. Henceforth, such an OPP is
+referred to as a \emph{crtitical point}. We collect data on these critical
+points through the following process:
+\begin{enumerate}
+    \item Choose a frequency from the set of possible frequencies, and set that
+        as the current CPU frequency.
+    \item Decrease the CPU voltage by the smallest possible amount
+        (i.e. $\frac{1}{1024}$ volts).
+    \item If the system crashes, record the current voltage–frequency pair as a
+        critical point; else, go to step (2).
+    \item Go to step (1), choosing a previously unchosen frequency if one
+        exists; else, we are done collecting data.
+\end{enumerate}
 
-For each frequency, step down the voltage incrementally until the system
-crashes. Record the last stable voltage. Plot these data to identify the
-stable/unstable OPPs, and more importantly, the boundary between these regions
-so that we know what values to test in order to inject a fault.
+The test detailed above is repeated numerous times for each possible frequency
+in order to obtain a reasonable sample size from which to determine an average
+voltage offset which renders the system unstable. To save time in collecting
+this data, we narrow down the range in which the critical point lies for a
+given frequency by only testing certain OPPs, and then take the time to more
+precisely find the critical point by testing all OPPs within this narrower
+range of voltage offsets.
+
+In particular, we first find the critical point to the nearest $\frac{10}{1024}$
+volts, performing three (3) repetitions. We assume that the crticial point lies
+in the range between the minimum and maximum of these data points, plus-or-minus
+another $\frac{10}{1024}$ volts. We then find the critical point to as much
+accuracy as is possible (i.e. to the nearest $\frac{1}{1024}$ volts) by testing
+every possible voltage offset within this narrower range, performing ten (10)
+repetitions. We plot the mean, minimum, and maximum of these 10 data points for
+each possible frequency.
+
+Ideally, this data collection would be automated, with the testbench running
+through the process detailed above on boot, recording the tested OPPs to disk,
+and rebooting after a system crash to repeat the process for different
+frequencies as required. In practice, this is not possible, for the following
+reasons:
+\begin{enumerate}
+    \item Any data that ought to be written to disk may not actually be flushed
+        from memory to disk before the sytem encounters a kernel panic, 
+        resulting in loss of these data; and
+    \item The system does not always reboot after encountering a kernel panic,
+        contrary to the operating system's intended function of rebooting 30
+        seconds after a kernel panic. In such situations, the machine must be
+        reset manually.
+\end{enumerate}
+
+As such, we collect the data by hand with the aid of some shell scripts, which
+follow.
+
+
