@@ -3,10 +3,10 @@
 \subsubsection{CPU performance scaling in the Linux kernel}
 
 The Linux kernel natively supports frequency scaling as part of its \code{CPUFreq}
-subsystem.\cite{linuxCPUScaling} Precisely one scaling driver is registered with
-the subsystem during boot time, which implements at least one scaling governor:
-an algorithm that determines which OPP each CPU core should be set to use at
-any given moment. Precisely one governor is in use at any given time.
+subsystem, documented in \cite{linuxCPUScaling}. Precisely one scaling driver is
+registered with the subsystem during boot time, which implements at least one
+scaling governor: an algorithm that determines which OPP each CPU core should be
+set to use at any given moment. Precisely one governor is in use at any given time.
 
 Standard governors include:
 \begin{itemize}
