@@ -1,7 +1,11 @@
 \section{Contribution and outline}
 
-TBD
-
-NOTE FROM DAVID: There should be a section "Contribution and Outline" at the end
-of the Intro chapter. This section should briefly summarize the structure of the
-remainder of the report \& clearly state the main contribution(s).
+We expand upon the work documented in \cite{clkscrew}, applying the principles
+used there to attempt to demonstrate the same vulnerabilities on Intel's Core
+series of processors. Firstly, we explore the extent to which
+software-accessible interfaces for DVFS exist on the platform. Secondly, we use
+these interfaces to determine which OPPs (operating performance points) cause
+system inability. Finally, we devise a kernel module which temporarily puts the
+system into an unstable state whilst computing a SHA-1 hash in the hopes that
+an incorrect hash is computed; this would serve to prove that the \clkscrew{}
+vulnerability is achievable, and perhaps exploitable on this platform.
