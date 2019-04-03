@@ -1,16 +1,29 @@
 \section{Security issues due to DVFS}
 
-CPUs contain flip-flops, which are used to store and propagate state information
-inside the CPU.
-If the next flip-flop in a series receives the clock pulse before its input
-changes, it will incorrectly propagate a flipped bit.
-Perhaps an attacker can force such behaviour to occur?
+DVFS poses security issues due to the nature of the design of CPU
+microarchitectures. Microprocessors comprise many millions or billions of
+transistors, which server the role of storing and propagating information within
+the CPU as and when required. One such type of transistor is the flip-flop,
+which has an input line, an output line, and a gate. When the gate signal is
+high (i.e. it has a high voltage relative to ground), the signal that is
+currently being input to the flip-flop is allowed to propagate through to the
+output.
 
-Undervolting and overclocking do the trick!
-Overclocking shortens clock cycles.
-Undervolting causes it to take more time for a signal to propagate from one
-flip-flop to the next.
-Fault occurs if $T_{\mathrm{clk}}$ is sufficiently small compared to
-$T_{\mathrm{max\_path}}$.
+A common scenario in CPUs is to have two flip-flops in series (the
+output of one being connected to the input of the other), with the gate of each
+flip-flop being tied to the processor's clock signal. Thus, with each pulse of
+the clock signal, each flip-flop sends its received input along the chain to the
+next one. This presents an issue if the amount of time that it takes for a
+signal to propagate from one flip-flop to the next is \emph{longer} than the
+length of the clock cycle, as then, if the second flip-flop is supposed to
+propagate a signal from the first, it will not receive this signal in time for
+it to be propagated. If the signal to be sent was opposite from the previous
+signal, this manifests as a bitflip from the intended signal. For example, if
+the previous signal was a binary 0 (low voltage), and the next signal is a
+binary 1 (high voltage), but this is not received in good time, then a binary 0
+is re-sent instead; the intended 1 becomes a 0.
 
-
+This behaviour can be induced simply by tweaking the DVFS parameters such that
+the duration of the clock cycle is sufficiently longer than the amount of time
+it taken for a signal to propagate from one flip-flop to the next in a series
+of flip-flops.
