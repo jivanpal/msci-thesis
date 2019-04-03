@@ -1,16 +1,88 @@
-\subsection{Overclocking}
+\subsection{Frequency scaling}
 
-Can we overclock?
+\subsubsection{CPU performance scaling in the Linux kernel}
 
-Intel i5-4590 (Haswell), 3.4GHz base clock, 3.7GHz “turbo” mode.
+The Linux kernel natively supports frequency scaling as part of its `CPUFreq`
+subsystem.\cite{linuxCPUScaling} Precisely one scaling driver is registered with
+the subsystem during boot time, which implements at least one scaling governor:
+an algorithm that determines which OPP each CPU core should be set to use at
+any given moment. Precisely one governor is in use at any given time.
 
-Intel P-states (performance states) managed internally by the CPU itself (“HWP”
-implemented in Linux `intel\_pstate` driver), not by the OS, so we cannot specify
-which P-state to use. :-(
+Standard governors include:
+\begin{itemize}
+    \item `performance` — enforces use of the most powerful OPP, at the expense
+        of having poor energy efficiency;
+    \item `powersave` — enforces use of the least powerful OPP, at the expense of
+        having limited computational power;
+    \item `schedutil` — uses data available from the CPU scheduler to make an
+        educated guess as to which OPP is most suitable for the current
+        workload; and
+    \item `userspace` — allows userspace utilties to request use of a
+        particular OPP via SysFS.
+\end{itemize}
 
-We revert to the `acpi\_cpufreq` driver to allow us to explicitly set the CPU
-frequency via the `cpupower` command. :-)
+The standard governors listed above are implemented by the `acpi-cpufreeq`
+driver, which can be used by the majority of modern CPUs, including those in
+the Intel Core series. However, processers in the Intel Core series from the
+2nd generation (Sandy Bridge) and later notably have a much larger, more
+granular set of OPPs (in this context called P-states by Intel) than is
+typical,\cite{intelDevManual} with the CPU itself managing which specific
+P-state to use; rather than this decision being made by the kernel/operating
+system and then the CPU being instructed to use the chosen P-state.
+This self-selection feature is known as HWP (hardware-managed P-states).
+In order to take advantage of HWP, the `intel\_pstate` driver was
+devised,\cite{linuxIntelPState} which only implements the following scaling
+governors:
+\begin{itemize}
+    \item `performance` — behaves as detailed above; and
+    \item `powersave` — despite having the same name as the `powersave`
+        governor of `acpi-cpufreq`, this governor behaves like the `schedutil`
+        governor of `acpi-cpufreq`, choosing a P-state most suitable for the
+        current workload based on information provided by the CPU's own
+        feedback registers.
+\end{itemize}
 
-Only certain frequencies available, not as granular as we would like; increments
-of 100 MHz or 200 MHz.
+Observe that there is no analogue to the `userspace` governor; neither of the
+two governors offered by `intel\_pstate` allows userspace to directly choose
+which P-state should be used. In order to overcome this barrier, we can specify
+not to use the `intel\_pstate` driver by specifying `intel\_pstate=disable` on
+the kernel command line (i.e. before boot), at which point the kernel will
+default to using `acpi-cpufreq` instead.
 
+\subsubsection{Setting the CPU frequency}
+
+The `CPUFreq` subsystem exposes an interface in SysFS that allows us to set the
+current P-state as desired. We use the `cpupower` utility available in the Arch
+Linux repositories as a front-end for ease of use, but the settings are
+ultimately read and altered by reading from and writing to files in `/sys/` as
+appropriate.
+
+When using the `acpi-cpufreq` driver with the `userspace` governor, we find that
+the range of possible frequencies is quite limited. Reading `/dev/cpuinfo` shows
+that the following options are available to us:
+\begin{itemize}
+    \item 800 MHz
+    \item 1000 MHz
+    \item 1200 MHz
+    \item 1300 MHz
+    \item 1500 MHz
+    \item 1700 MHz
+    \item 1900 MHz
+    \item 2000 MHz
+    \item 2200 MHz
+    \item 2400 MHz
+    \item 2600 MHz
+    \item 2800 MHz
+    \item 2900 MHz
+    \item 3100 MHz
+    \item 3300 MHz
+    \item 3301 MHz
+\end{itemize}
+
+The last of these options, 3301 MHz, is actually the driver's way of exposing
+the ability to use Intel Turbo Boost.[CITE — CPUFreq using max frequency + 1 Mhz]
+Our CPU's base frequency is 3300 MHz,
+with Turbo support for 3700 MHz. Requesting that the CPU frequency be set to
+3301 MHz simply causes the CPU the enter Turbo Boost mode, at which point the
+frequency will range between 3400 MHz and 3700 MHz depending on the
+workload.[CITE — HOW DOES TURBO BOOST OPERATE]
