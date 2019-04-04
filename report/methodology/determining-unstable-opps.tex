@@ -13,8 +13,9 @@ points through the following process:
         as the current CPU frequency.
     \item Decrease the CPU voltage by the smallest possible amount
         (i.e. $\frac{1}{1024}$ volts).
-    \item If the system crashes, record the current voltage–frequency pair as a
-        critical point; else, go to step (2).
+    \item Perform some fixed computational task: we compute the SHA-1 hash of
+        some predefined data. If the system crashes, record the current
+        voltage–frequency pair as a critical point; else, go to step (2).
     \item Go to step (1), choosing a previously unchosen frequency if one
         exists; else, we are done collecting data.
 \end{enumerate}
@@ -51,7 +52,10 @@ reasons:
         reset manually.
 \end{enumerate}
 
-As such, we collect the data by hand with the aid of some shell scripts, which
-follow.
+As such, we collect the data by hand with the aid of a shell script, which
+follows:
 
+\lstinputlisting[language=Bash,caption={Shell script to deermine critical points — \code{undervolt-test.sh}}]{undervolt-test.sh}
+% \inputminted{bash}{methodology/undervolt-test.sh}
 
+[TBD] Explain how the script is used

@@ -1,11 +1,29 @@
 \documentclass[a4paper,12pt]{report}
 
-\usepackage{import}
 \usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[margin=1in]{geometry}
+
+\usepackage{xcolor}
 \usepackage{graphicx}
 
 \usepackage[backend=bibtex]{biblatex}
 \addbibresource{references.bib}
+
+\usepackage{listings}
+\lstset{frame=tb,
+    % framesep=10pt,
+    showstringspaces=false,
+    basicstyle={\small\ttfamily},
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{violet},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4
+}
+
+% \usepackage{minted}
 
 \newcommand{\code}{\texttt}
 \newcommand{\clkscrew}{CLKscrew}
