@@ -9,7 +9,18 @@
 ## file is intended to have an exhaustive list of voltage
 ## offsets.
 
-. common.sh
+handle_sigint() {
+  echo -e "\nExiting due to SIGINT.\n"
+  exit 1
+}
+
+handle_sigterm() {
+  echo -e "\nExiting due to SIGTERM.\n"
+  exit 1
+}
+
+trap handle_sigint INT
+trap handle_sigterm TERM
 
 if [[ $# -ne 1 && $# -ne 2 ]] ; then
     >&2 echo "Incorrect number of arguments"
