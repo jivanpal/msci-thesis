@@ -42,20 +42,20 @@ through the process detailed above on boot, recording the tested OPPs to disk,
 and rebooting after a system crash to repeat the process for different
 frequencies as required. In practice, this is not possible, for the following
 reasons:
-\begin{enumerate}
-    \item Any data that ought to be written to disk may not actually be flushed
+\begin{itemize}
+    \item any data that ought to be written to disk may not actually be flushed
         from memory to disk before the sytem encounters a kernel panic, 
         resulting in loss of these data; and
-    \item The system does not always reboot after encountering a kernel panic,
+    \item the system does not always reboot after encountering a kernel panic,
         contrary to the operating system's intended function of rebooting 30
         seconds after a kernel panic. In such situations, the machine must be
         reset manually.
-\end{enumerate}
+\end{itemize}
 
 As such, we collect the data by hand with the aid of a shell script, which
 follows:
 
-\lstinputlisting[language=Bash,caption={Shell script to deermine critical points — \code{undervolt-test.sh}}]{undervolt-test.sh}
+\lstinputlisting[language=Bash,caption={Shell script to determine critical points — \code{undervolt-test.sh}}]{undervolt-test.sh}
 % \inputminted{bash}{methodology/undervolt-test.sh}
 
 [TBD] Explain how the script is used

@@ -10,12 +10,12 @@ set to use at any given moment. Precisely one governor is in use at any given ti
 
 Standard governors include:
 \begin{itemize}
-    \item \code{performance} — enforces use of the most powerful OPP, at the expense
-        of having poor energy efficiency;
-    \item \code{powersave} — enforces use of the least powerful OPP, at the expense of
-        having limited computational power;
-    \item \code{schedutil} — uses data available from the CPU scheduler to make an
-        educated guess as to which OPP is most suitable for the current
+    \item \code{performance} — enforces use of the most powerful OPP, at the
+        expense of having poor energy efficiency;
+    \item \code{powersave} — enforces use of the least powerful OPP, at the
+        expense of having limited computational power;
+    \item \code{schedutil} — uses data available from the CPU scheduler to make
+        an educated guess as to which OPP is most suitable for the current
         workload; and
     \item \code{userspace} — allows userspace utilties to request use of a
         particular OPP via SysFS.
@@ -25,41 +25,40 @@ The standard governors listed above are implemented by the \code{acpi-cpufreq}
 driver, which can be used by the majority of modern CPUs, including those in
 the Intel Core series. However, processers in the Intel Core series from the
 2nd generation (Sandy Bridge) and later notably have a much larger, more
-granular set of OPPs (in this context called P-states by Intel) than is
-typical,\cite{intelDevManual} with the CPU itself managing which specific
-P-state to use; rather than this decision being made by the kernel/operating
-system and then the CPU being instructed to use the chosen P-state.
-This self-selection feature is known as HWP (hardware-managed P-states).
-In order to take advantage of HWP, the \code{intel\_pstate} driver was
-devised,\cite{linuxIntelPState} which only implements the following scaling
-governors:
+granular set of P-states than is typical \cite{intelDevManual}, with the CPU
+itself managing which specific P-state to use; rather than this decision being
+made by the kernel/operating system and then the CPU being instructed to use 
+the chosen P-state. This self-selection feature is known as HWP
+(hardware-managed P-states). In order to take advantage of HWP, the
+\code{intel\_pstate} driver \cite{linuxIntelPState} was devised, which only
+implements the following scaling governors:
 \begin{itemize}
     \item \code{performance} — behaves as detailed above; and
     \item \code{powersave} — despite having the same name as the
-        \code{powersave} governor of \code{acpi-cpufreq}, this governor behaves
-        like the \code{schedutil} governor of \code{acpi-cpufreq}, choosing a
-        P-state most suitable for the current workload based on information
-        provided by the CPU's own feedback registers.
+        \code{powersave} governor of \code{acpi-cpufreq}, this governor instead
+        behaves like the \code{schedutil} governor of \code{acpi-cpufreq},
+        choosing a P-state most suitable for the current workload based on
+        information provided by the CPU's own feedback registers.
 \end{itemize}
 
-Observe that there is no analogue to the \code{userspace} governor; neither of the
-two governors offered by \code{intel\_pstate} allows userspace to directly choose
-which P-state should be used. In order to overcome this barrier, we can specify
-not to use the \code{intel\_pstate} driver by specifying \code{intel\_pstate=disable} on
-the kernel command line (i.e. before boot), at which point the kernel will
-default to using \code{acpi-cpufreq} instead.
+Observe that there is no analogue to the \code{userspace} governor; neither of
+the two governors offered by \code{intel\_pstate} allow userspace processes to
+directly choose which P-state should be used. In order to overcome this barrier,
+we can choose not to use the \code{intel\_pstate} driver by specifying
+\code{intel\_pstate=disable} on the kernel command line (i.e. before boot),
+at which point the kernel will default to using \code{acpi-cpufreq} instead.
 
 \subsubsection{Setting the CPU frequency}
 
-The \code{CPUFreq} subsystem exposes an interface in SysFS that allows us to set
-the current P-state as desired. We use the \code{cpupower} utility available in
-the Arch Linux repositories as a front-end for ease of use, as detailed in
-\cite{archFrequency}, but the settings are ultimately read and altered by
-reading from and writing to files in \code{/sys/} as appropriate.
+The \code{CPUFreq} subsystem exposes an interface in SysFS that allows us to
+set the current P-state as desired. A front-end utility called \code{cpupower}
+exists to more easily use this SysFS interface, and is available in the Arch
+Linux repositories as detailed in \cite{archFrequency}. We use \code{cpupower}
+in §\ref{sec:unstableOPPs}.
 
-When using the \code{acpi-cpufreq} driver with the \code{userspace} governor, we find that
-the range of possible frequencies is quite limited. Reading \code{/dev/cpuinfo} shows
-that the following options are available to us:
+When using the \code{acpi-cpufreq} driver, we find that the range of possible
+frequencies is quite limited. Reading \code{/dev/cpuinfo} shows that the
+following options are available:
 \begin{itemize}
     \item 800 MHz
     \item 1000 MHz
