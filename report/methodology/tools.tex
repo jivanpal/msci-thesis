@@ -4,11 +4,12 @@
 \subsection{Shell scripts}
 \label{sec:undervolt-test.sh}
 
-The script used in §\ref{sec:unstableOPPs} to assist us in collecting data
+The columnsep is \the\columnsep. The script used in §\ref{sec:unstableOPPs} to assist us in collecting data
 regarding which OPPs result in a system crash is given in Listing
 \ref{lst:undervolt-test.sh}.
 
 \lstinputlisting[language=Bash,
+    breakatwhitespace=false,
     caption={\label{lst:undervolt-test.sh}
     Shell script to determine critical points — \code{undervolt-test.sh}}]
     {undervolt-test.sh}
@@ -16,14 +17,22 @@ regarding which OPPs result in a system crash is given in Listing
 The script takes the frequency to test in MHz as its first argument, e.g.
 \code{2600} for 2600 MHz, and optionally takes a second argument, \code{all}.
 If \code{all} is specified, we test all voltage offsets listed in the file
-\code{undervolt-list.txt}, which is given in Listing \ref{lst:undervolt-list.txt}.
-These voltage offsets are expressed in millivolts (units of
-$\frac{1}{1000}$~volts) rather than the MSR interface's expected units of
-$\frac{1}{1024}$~volts, as these numbers are fed into the \code{undervolt}
-program utility, which then rounds the given value in millivolts to the nearest
-multiple of $\frac{1}{1024}$~volts, and writes the appropriate value to the MSR.
+\code{undervolt-list.txt}, which simply lists all the multiples of 10 in order
+from $-10$ to $-400$, as can be seen in Listing \ref{lst:undervolt-list.txt}
+for clarity.
 
-\lstinputlisting[caption={\label{lst:undervolt-list.txt}
+If \code{all} is not specified, a list of voltage offsets specific
+to the given frequency is used, as found in the file
+\code{undervolt-list-\textit{f}.txt}, where \code{\textit{f}} is the given
+frequency. For example, specifying \code{2600} as the frequency and not
+specifying \code{all} will result in the file \code{undervolt-list-2600.txt}
+being used as the list of voltage offsets to test. The voltage offsets given in
+such files are expressed in milivolts, as they will be passed directly to the
+\code{undervolt} utility, which expects voltage offsets in these units, as
+explained in §\ref{sec:undervolt}.
+
+\lstinputlisting[language=C,
+    caption={\label{lst:undervolt-list.txt}
     Imprecise list of voltage offsets to test for all frequencies, in
     millivolts — \code{undervolt-list.txt}}]
     {undervolt-list.txt}
