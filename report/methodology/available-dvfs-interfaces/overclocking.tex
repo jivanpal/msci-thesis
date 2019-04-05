@@ -60,24 +60,27 @@ in §\ref{sec:unstableOPPs}.
 When using the \code{acpi-cpufreq} driver, we find that the range of possible
 frequencies is quite limited. Reading \code{/dev/cpuinfo} shows that the
 following options are available:
-\begin{itemize}
-    \item 800 MHz
-    \item 1000 MHz
-    \item 1200 MHz
-    \item 1300 MHz
-    \item 1500 MHz
-    \item 1700 MHz
-    \item 1900 MHz
-    \item 2000 MHz
-    \item 2200 MHz
-    \item 2400 MHz
-    \item 2600 MHz
-    \item 2800 MHz
-    \item 2900 MHz
-    \item 3100 MHz
-    \item 3300 MHz
-    \item 3301 MHz
-\end{itemize}
+
+\begin{multicols}{3}\raggedcolumns
+    \begin{itemize}
+        \item 800 MHz
+        \item 1000 MHz
+        \item 1200 MHz
+        \item 1300 MHz
+        \item 1500 MHz
+        \item 1700 MHz
+        \item 1900 MHz
+        \item 2000 MHz
+        \item 2200 MHz
+        \item 2400 MHz
+        \item 2600 MHz
+        \item 2800 MHz
+        \item 2900 MHz
+        \item 3100 MHz
+        \item 3300 MHz
+        \item 3301 MHz
+    \end{itemize}
+\end{multicols}
 
 The last of these options, 3301 MHz, is actually the driver's way of exposing
 the ability to use Intel Turbo Boost.[CITE — CPUFreq using max frequency + 1 Mhz]

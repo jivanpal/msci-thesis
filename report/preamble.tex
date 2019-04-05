@@ -3,6 +3,23 @@
 \usepackage[utf8]{inputenc}
 \usepackage{import}
 \usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+
+\usepackage[font=small,textfont=it]{caption}
+
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+{\bfseries\Large}   % format
+{\thechapter \ }    % label
+{0.3em}             % separation
+{}                  % pre-hook
+
+\titleformat{\section}[display]
+{\bfseries\large}   % format
+{\thesection \ }    % label
+{0.3em}             % separation
+{}                  % pre-hook
 
 \usepackage[english]{babel}
 \usepackage[autostyle,english=american]{csquotes}
