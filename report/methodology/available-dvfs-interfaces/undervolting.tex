@@ -3,18 +3,18 @@
 
 Intel does not seem to provide any documentation for the voltage
 scaling interface in their Intel Core processors, though a closed-source
-Windows utility called ThrottleStop \cite{throttlestop} exists to control DVFS
-parameters. This utility has been reverse-engineered \cite{elersicDoc},
+Windows utility called ThrottleStop~\cite{throttlestop} exists to control DVFS
+parameters. This utility has been reverse-engineered~\cite{elersicDoc},
 revealing that a model-specific register (MSR) exists in this line of processors
 to read and write setting related to voltage scaling. Specifically, the MSR with
 address 0x150 acts as an interface for voltage scaling, although this is also
-not officially documented by Intel in \cite[Vol. 4, §2.13]{intelDevManual} as
+not officially documented by Intel in~\cite[Vol. 4, §2.13]{intelDevManual} as
 would be expected.
 
 Using this interface, it is possible to adjust the voltage offset from the base
 voltage in units of $\frac{1}{1024}$~volts. The MSR uses an 11-bit signed 
 nteger to describe the offset from the base voltage in these units, thus
 allowing a maximum voltage offset of $\pm{1}$~volts. A front-end utility called
-\code{undervolt} \cite{whewellUndervolt} has been developed in Python to more
-easily use the interface described in \cite{elersicDoc}. We use \code{undervolt}
+\code{undervolt}~\cite{whewellUndervolt} has been developed in Python to more
+easily use the interface described in~\cite{elersicDoc}. We use \code{undervolt}
 in §\ref{sec:unstableOPPs}.

@@ -3,7 +3,7 @@
 \subsubsection{CPU performance scaling in the Linux kernel}
 
 The Linux kernel natively supports frequency scaling as part of its \code{CPUFreq}
-subsystem, documented in \cite{linuxCPUScaling}. Precisely one scaling driver is
+subsystem, documented in~\cite{linuxCPUScaling}. Precisely one scaling driver is
 registered with the subsystem during boot time, which implements at least one
 scaling governor: an algorithm that determines which OPP each CPU core should be
 set to use at any given moment. Precisely one governor is in use at any given time.
@@ -25,12 +25,12 @@ The standard governors listed above are implemented by the \code{acpi-cpufreq}
 driver, which can be used by the majority of modern CPUs, including those in
 the Intel Core series. However, processers in the Intel Core series from the
 2nd generation (Sandy Bridge) and later notably have a much larger, more
-granular set of P-states than is typical \cite{intelDevManual}, with the CPU
+granular set of P-states than is typical~\cite{intelDevManual}, with the CPU
 itself managing which specific P-state to use; rather than this decision being
 made by the kernel/operating system and then the CPU being instructed to use 
 the chosen P-state. This self-selection feature is known as HWP
 (hardware-managed P-states). In order to take advantage of HWP, the
-\code{intel\_pstate} driver \cite{linuxIntelPState} was devised, which only
+\code{intel\_pstate} driver~\cite{linuxIntelPState} was devised, which only
 implements the following scaling governors:
 \begin{itemize}
     \item \code{performance} — behaves as detailed above; and
@@ -54,7 +54,7 @@ at which point the kernel will default to using \code{acpi-cpufreq} instead.
 The \code{CPUFreq} subsystem exposes an interface in SysFS that allows us to
 set the current P-state as desired. A front-end utility called \code{cpupower}
 exists to more easily use this SysFS interface, and is available in the Arch
-Linux repositories as detailed in \cite{archFrequency}. We use \code{cpupower}
+Linux repositories as detailed in~\cite{archFrequency}. We use \code{cpupower}
 in §\ref{sec:unstableOPPs}.
 
 When using the \code{acpi-cpufreq} driver, we find that the range of possible
