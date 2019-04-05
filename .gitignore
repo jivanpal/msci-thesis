@@ -1,3 +1,4 @@
+.DS_Store
 /report/report*
 !/report/report.tex
 /report/_minted-*

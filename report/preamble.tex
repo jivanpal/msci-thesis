@@ -1,8 +1,12 @@
-\documentclass[a4paper,12pt]{report}
+\documentclass[a4paper,twocolumn,10pt]{report}
 
 \usepackage[utf8]{inputenc}
 \usepackage{import}
 \usepackage[margin=1in]{geometry}
+
+\usepackage[english]{babel}
+\usepackage[autostyle,english=american]{csquotes}
+\MakeOuterQuote{"}
 
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -12,7 +16,8 @@
 
 \usepackage{listings}
 \lstset{frame=tb,
-    % framesep=10pt,
+    xleftmargin=2em,
+    framexleftmargin=2em,
     showstringspaces=false,
     basicstyle={\small\ttfamily},
     keywordstyle=\color{blue},
@@ -23,8 +28,6 @@
     breakatwhitespace=true,
     tabsize=4
 }
-
-% \usepackage{minted}
 
 \newcommand{\code}{\texttt}
 \newcommand{\clkscrew}{CLKscrew}

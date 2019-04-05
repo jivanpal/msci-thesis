@@ -1,13 +1,35 @@
 \section{Tools}
+\label{sec:tools}
+
+\subsection{Shell scripts}
+\label{sec:undervolt-test.sh}
+
+The script used in §\ref{sec:unstableOPPs} to assist us in collecting data
+regarding which OPPs result in a system crash is given in Listing
+\ref{lst:undervolt-test.sh}.
+
+\lstinputlisting[language=Bash,caption={\label{lst:undervolt-test.sh}
+    Shell script to determine critical points — \code{undervolt-test.sh}}]
+    {undervolt-test.sh}
+
+The script takes the frequency to test in MHz as its first argument, e.g.
+\code{2600} for 2600 MHz, and optionally takes a second argument, \code{all}.
+If \code{all} is specified, we test all voltage offsets listed in the file
+\code{undervolt-list.txt}, which is given in Listing \ref{lst:undervolt-list.txt}.
+These voltage offsets are expressed in millivolts (units of $\frac{1}{1000}$
+volts) rather than the MSR interface's expected units of $\frac{1}{1024}$ volts,
+as these numbers are fed into the \code{undervolt} program utility, which then
+rounds the given value in millivolts to the nearest multiple of $\frac{1}{1024}$
+volts, and writes the appropriate value to the MSR.
+
+\lstinputlisting[caption={\label{lst:undervolt-list.txt}
+    Imprecise list of voltage offsets to test for all frequencies, in
+    millivolts — \code{undervolt-list.txt}}]
+    {undervolt-list.txt}
+
+\subsection{Kernel modules}
 
 [TBD]
-
-Generate and save some random data
-Compute its SHA-1 hash correctly in a stable state
-Attempt to compute the SHA-1 hash again at different OPPs until we see an
-incorrect hash is computed. The machine crashes before we get the chance to see
-the computation, so we need to inject the fault at a lower level in order to
-change the voltage in shorter bursts.
 
 We create a custom \code{sha1sum} binary which changes the core voltage during its
 execution.
