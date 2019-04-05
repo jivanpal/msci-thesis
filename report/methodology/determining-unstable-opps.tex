@@ -24,13 +24,28 @@ how we can determine these critical points.
 In practice, we expand upon this process in order to collect a more suitable
 dataset. The process given above is repeated numerous times for each possible
 frequency in order to obtain a reasonable sample size from which to determine
-an average voltage offset which renders the system unstable. To save time in
-collecting this data, we narrow down the range in which the critical point lies
-for a given frequency by only testing certain OPPs, and then take the time to
-more precisely find the critical point by testing all OPPs within this narrower
-range of voltage offsets. We do this with the aid of the \code{cpupower} and
-\code{undervolt} utilities discussed in §\ref{sec:cpupower} and
-§\ref{sec:undervolt}, respectively.
+an average voltage offset which renders the system unstable. Ideally, this data
+collection would be automated, with the testbench running through the process
+detailed above on boot, recording the tested OPPs to disk, and rebooting after
+a system crash to repeat the process for different frequencies as required. In
+practice, this is not possible, for the following reasons:
+
+\begin{itemize}
+    \item any data that ought to be written to disk may not actually be flushed
+        from memory to disk before the sytem encounters a kernel panic, 
+        resulting in loss of these data; and
+    \item the system does not always reboot after encountering a kernel panic,
+        contrary to the operating system's intended function of rebooting 30
+        seconds after a kernel panic. In such situations, the machine must be
+        reset manually.
+\end{itemize}
+
+Thus, to save time in collecting this data, we narrow down the range in which
+the critical point lies for a given frequency by only testing certain OPPs, and
+then take the time to more precisely find the critical point by testing all OPPs
+within this narrower range of voltage offsets. We do this with the aid of the
+\code{cpupower} and \code{undervolt} utilities discussed in §\ref{sec:cpupower}
+and §\ref{sec:undervolt}, respectively.
 
 The \code{undervolt} utility expects voltage offsets to be expressed in
 millivolts (mV, units of $\frac{1}{1000}$~volts) rather than the MSR interface's
@@ -39,7 +54,11 @@ millivolts to the nearest multiple of $\frac{1}{1024}$~volts, and writes the
 appropriate value to the MSR. As such, the "smallest possible amount" mentioned
 in step (2) of the process above is taken as 1~mV rather than
 $\frac{1}{1024}$~volts. The process we end up using is described by the
-flowchart in Figure \ref{fig:data-collection-flowchart}.
+flowchart in Figure \ref{fig:data-collection-flowchart}. Since we cannot fully
+automate this process as discussed earlier, ee collect the data by hand by
+running through this process with the aid of a shell script,
+\code{undervolt-test.sh}, details of which are given in
+§\ref{sec:undervolt-test.sh}.
 
 \begin{figure}[!htb]
     \center{\includegraphics[width=\columnwidth,keepaspectratio]{data-collection-flowchart.png}}
@@ -68,22 +87,3 @@ points for each possible frequency in Figure \ref{fig:critical-points-graph}.
         the bounds for the corresponding error bars.
     }
 \end{figure}
-
-Ideally, this data collection would be automated, with the testbench running
-through the process detailed above on boot, recording the tested OPPs to disk,
-and rebooting after a system crash to repeat the process for different
-frequencies as required. In practice, this is not possible, for the following
-reasons:
-\begin{itemize}
-    \item any data that ought to be written to disk may not actually be flushed
-        from memory to disk before the sytem encounters a kernel panic, 
-        resulting in loss of these data; and
-    \item the system does not always reboot after encountering a kernel panic,
-        contrary to the operating system's intended function of rebooting 30
-        seconds after a kernel panic. In such situations, the machine must be
-        reset manually.
-\end{itemize}
-
-As such, we collect the data by hand with the aid of a shell script,
-\code{undervolt-test.sh}, details of which are given in
-§\ref{sec:undervolt-test.sh}.
