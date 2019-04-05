@@ -16,11 +16,11 @@ The script takes the frequency to test in MHz as its first argument, e.g.
 \code{2600} for 2600 MHz, and optionally takes a second argument, \code{all}.
 If \code{all} is specified, we test all voltage offsets listed in the file
 \code{undervolt-list.txt}, which is given in Listing \ref{lst:undervolt-list.txt}.
-These voltage offsets are expressed in millivolts (units of $\frac{1}{1000}$
-volts) rather than the MSR interface's expected units of $\frac{1}{1024}$ volts,
-as these numbers are fed into the \code{undervolt} program utility, which then
-rounds the given value in millivolts to the nearest multiple of $\frac{1}{1024}$
-volts, and writes the appropriate value to the MSR.
+These voltage offsets are expressed in millivolts (units of
+$\frac{1}{1000}$~volts) rather than the MSR interface's expected units of
+$\frac{1}{1024}$~volts, as these numbers are fed into the \code{undervolt}
+program utility, which then rounds the given value in millivolts to the nearest
+multiple of $\frac{1}{1024}$~volts, and writes the appropriate value to the MSR.
 
 \lstinputlisting[caption={\label{lst:undervolt-list.txt}
     Imprecise list of voltage offsets to test for all frequencies, in

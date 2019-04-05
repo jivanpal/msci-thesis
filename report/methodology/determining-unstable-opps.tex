@@ -13,7 +13,7 @@ how we can determine these critical points.
     \item Choose a frequency from the set of possible frequencies, and set that
         as the current CPU frequency.
     \item Decrease the CPU voltage by the smallest possible amount
-        (i.e. $\frac{1}{1024}$ volts).
+        (i.e. $\frac{1}{1024}$~volts).
     \item Perform some fixed computational task, e.g. compute the SHA-1 hash of
         some predefined data. If the system crashes, record the current
         OPP as a critical point; else, go to step (2).
@@ -33,13 +33,13 @@ range of voltage offsets. We do this with the aid of the \code{cpupower} and
 §\ref{sec:undervolt}, respectively.
 
 The \code{undervolt} utility expects voltage offsets to be expressed in
-millivolts (mV, units of $\frac{1}{1000}$ volts) rather than the MSR interface's
-expected units of $\frac{1}{1024}$ volts. It then rounds the given value in
-millivolts to the nearest multiple of $\frac{1}{1024}$ volts, and writes the
+millivolts (mV, units of $\frac{1}{1000}$~volts) rather than the MSR interface's
+expected units of $\frac{1}{1024}$~volts. It then rounds the given value in
+millivolts to the nearest multiple of $\frac{1}{1024}$~volts, and writes the
 appropriate value to the MSR. As such, the "smallest possible amount" mentioned
-in step (2) of the process above is taken as 1 mV rather than $\frac{1}{1024}$
-volts. The process we end up using is described by the flowchart in Figure
-\ref{fig:data-collection-flowchart}.
+in step (2) of the process above is taken as 1~mV rather than
+$\frac{1}{1024}$~volts. The process we end up using is described by the
+flowchart in Figure \ref{fig:data-collection-flowchart}.
 
 \begin{figure}[!htb]
     \center{\includegraphics[width=\columnwidth,keepaspectratio]{data-collection-flowchart.png}}
@@ -50,10 +50,10 @@ volts. The process we end up using is described by the flowchart in Figure
     }
 \end{figure}
 
-In particular, we first find the critical point to the nearest 10 mV, performing
+In particular, we first find the critical point to the nearest 10~mV, performing
 three (3) repetitions. We assume that the crticial point does not lie above the
-maximum of these data points, plus another 10 mV for assurance. We then find the
-critical point to as much accuracy as is possible (i.e. to the nearest 10 mV)
+maximum of these data points, plus another 10~mV for assurance. We then find the
+critical point to as much accuracy as is possible (i.e. to the nearest 10~mV)
 by testing every possible voltage offset within this narrower range, performing
 ten (10) repetitions. We plot the mean, minimum, and maximum of these 10 data
 points for each possible frequency in Figure \ref{fig:critical-points-graph}.
