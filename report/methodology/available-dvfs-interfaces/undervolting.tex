@@ -8,7 +8,7 @@ parameters. This utility has been reverse-engineered \cite{elersicDoc},
 revealing that a model-specific register (MSR) exists in this line of processors
 to read and write setting related to voltage scaling. Specifically, the MSR with
 address 0x150 acts as an interface for voltage scaling, although this is also
-not officially documented by Intel in \cite[Volume 4, §2.13]{intelDevManual} as
+not officially documented by Intel in \cite[Vol. 4, §2.13]{intelDevManual} as
 would be expected.
 
 Using this interface, it is possible to adjust the voltage offset from the base

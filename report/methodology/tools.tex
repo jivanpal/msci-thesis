@@ -37,3 +37,23 @@ Need to execute in kernel mode so that MSRs can be read/written in order to
 change the voltage.
 We create a custom kernel module for this purpose which computes SHA-1 hash
 when inserted into the kernel via \code{insmod}.
+
+====
+
+In order to demonstrate that it is possible to use a \clkscrew style attack on
+this platform, we attempt to compute an incorrect SHA-1 hash of some data. The
+process is as follows:
+
+\begin{enumerate}
+    \item Choose a known critical point.
+    \item Put the system into a stable OPP near the chosen critical point.
+    \item Begin computing the SHA-1 hash.
+    \item Whilst the hash is being computed, temporarily put the system into an
+        unstable OPP near the chosen critical point.
+    \item The hash computation ends, and we hope to see an incorrect hash.
+\end{enumerate}
+
+To conduct this process, an attacker would need access to read from and write to
+the necessary MSR. This is ultimately done via execution of the assembly-level
+\code{RDMSR} and \code{WRMSR} instructions of the x86
+architecture~\cite[Vol. 2, §§4.3–4]{intelDevManual}, 
