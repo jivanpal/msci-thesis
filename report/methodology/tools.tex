@@ -8,7 +8,8 @@ The script used in §\ref{sec:unstableOPPs} to assist us in collecting data
 regarding which OPPs result in a system crash is given in Listing
 \ref{lst:undervolt-test.sh}.
 
-\lstinputlisting[language=Bash,caption={\label{lst:undervolt-test.sh}
+\lstinputlisting[language=Bash,
+    caption={\label{lst:undervolt-test.sh}
     Shell script to determine critical points — \code{undervolt-test.sh}}]
     {undervolt-test.sh}
 
@@ -40,9 +41,9 @@ when inserted into the kernel via \code{insmod}.
 
 ====
 
-In order to demonstrate that it is possible to use a \clkscrew style attack on
-this platform, we attempt to compute an incorrect SHA-1 hash of some data. The
-process is as follows:
+In order to demonstrate that it is possible to use a \clkscrew{} style attack
+on this platform, we attempt to compute an incorrect SHA-1 hash of some data.
+The process is as follows:
 
 \begin{enumerate}
     \item Choose a known critical point.
@@ -56,4 +57,33 @@ process is as follows:
 To conduct this process, an attacker would need access to read from and write to
 the necessary MSR. This is ultimately done via execution of the assembly-level
 \code{RDMSR} and \code{WRMSR} instructions of the x86
-architecture~\cite[Vol. 2, §§4.3–4]{intelDevManual}, 
+architecture~\cite[Vol. 2, §§4.3–4]{intelDevManual}. Since these instructions
+must be executed at privilege level 0 or in real-address mode, we cannot
+execute these instructions from userspace; we need to do so in kernel mode. We
+therefore write a custom kernel driver to set the OPP at the necessary times.
+
+For the sake of simply forming a proof-of-concept that computational faults can
+occur, rather than actually producing a fully-formed attack, we adapt the source
+code of GnuPG's \code{sha1sum} program~\cite{gnupgSHA} into a kernel module
+which, upon being inserted into the kernel via \code{insmod}, computes the
+SHA-1 hash of a file with a predefined filepath (namely
+\code{/tmp/.\_shatest\_data}), and logs the computed hash to the console. We
+adapt some code by Michael Guyver~\cite{guyverCode} to develop a set of C
+functions which can read from and write to the MSRs appropriately in order to
+set the core voltage offset as required. We then alter the hash computation code
+so that the system is temporarily put into an unstable OPP as in step (3) above.
+
+To this end, we have written a kernel module dubbed \code{bad\_sha}, which is
+given in Listing \ref{lst:bad-sha.c}. The header file \code{msr.h} which
+contains the functions for reading from and writing to MSRs is given in
+Listing \ref{lst:msr.h}
+
+\lstinputlisting[language=C,
+    caption={\label{lst:bad-sha.c}
+    Source code for the \code{bad\_sha} kernel module — \code{bad-sha.c}}]
+    {bad-sha.c}
+
+\lstinputlisting[language=C,
+    caption={\label{lst:msr.h}
+    Header file containing MSR-related functions — \code{msr.h}}]
+    {msr.h}

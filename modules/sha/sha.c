@@ -1,4 +1,4 @@
-/* SHA-1 code taken from gnupg 1.3.92. 
+/* SHA-1 code taken from GnuPG 1.3.92. 
  * Source: ftp://ftp.gnupg.org/gcrypt/binary/sha1sum.c
  */
 
