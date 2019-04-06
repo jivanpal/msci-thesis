@@ -4,12 +4,18 @@
 \usepackage{import}
 \usepackage[margin=0.9in]{geometry}
 \setlength{\columnsep}{0.2in}
+% \renewcommand{\clearpage}{}
+% \renewcommand{\cleardoublepage}{}
 
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage[font=small,textfont=it]{caption}
+
+% Penalise hyphenation more than the default setup
+\tolerance=1600
+\hyphenpenalty=200
 
 \usepackage{enumitem}
 \setlist[enumerate]{label=(\arabic*)}
@@ -23,13 +29,13 @@
 
 \usepackage{titlesec}
 
-\titleformat{\chapter}[display]
+\titleformat{\chapter}
 {\bfseries\Large}   % format
 {\thechapter \ }    % label
 {0.3em}             % separation
 {}                  % pre-hook
 
-\titleformat{\section}[display]
+\titleformat{\section}
 {\bfseries\large}   % format
 {\thesection \ }    % label
 {0.3em}             % separation

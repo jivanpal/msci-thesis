@@ -5,8 +5,9 @@
 The Linux kernel natively supports frequency scaling as part of its \code{CPUFreq}
 subsystem, documented in~\cite{linuxCPUScaling}. Precisely one scaling driver is
 registered with the subsystem during boot time, which implements at least one
-scaling governor: an algorithm that determines which OPP each CPU core should be
-set to use at any given moment. Precisely one governor is in use at any given time.
+scaling governor: an algorithm that determines which OPP each CPU core should
+use at any given moment. Precisely one governor is in use at any given time,
+and this can be changed whilst the system is running.
 
 Standard governors include:
 \begin{itemize}
@@ -25,13 +26,15 @@ The standard governors listed above are implemented by the \code{acpi-cpufreq}
 driver, which can be used by the majority of modern CPUs, including those in
 the Intel Core series. However, processers in the Intel Core series from the
 2nd generation (Sandy Bridge) and later notably have a much larger, more
-granular set of P-states than is typical~\cite{intelDevManual}, with the CPU
-itself managing which specific P-state to use; rather than this decision being
-made by the kernel/operating system and then the CPU being instructed to use 
-the chosen P-state. This self-selection feature is known as HWP
-(hardware-managed P-states). In order to take advantage of HWP, the
-\code{intel\_pstate} driver~\cite{linuxIntelPState} was devised, which only
-implements the following scaling governors:
+granular set of P-states than is typical, with the CPU itself managing which
+specific P-state to use. This is in contrast to the decision being made by the
+operating system, which then instructs the CPU to use the chosen P-state. This
+self-selection feature is known as HWP (hardware-managed P-states or
+hardware-coordinated P-states)~\cite[Vol. 3, §14.3.2.3]{intelDevManual}. In
+order to take advantage of HWP, the \code{intel\_pstate}
+driver~\cite{linuxIntelPState} was devised, which only implements the following
+scaling governors:
+
 \begin{itemize}
     \item \code{performance} — behaves as detailed above; and
     \item \code{powersave} — despite having the same name as the
@@ -58,34 +61,34 @@ Linux repositories as detailed in~\cite{archFrequency}. We use \code{cpupower}
 in §\ref{sec:unstableOPPs}.
 
 When using the \code{acpi-cpufreq} driver, we find that the range of possible
-frequencies is quite limited. Reading \code{/dev/cpuinfo} shows that the
-following options are available:
+frequencies is quite limited. SysFS tells us via a file named
+\code{scaling\_available\_frequencies} that the following options are available:
 
 \begin{multicols}{3}\raggedcolumns
     \begin{itemize}
-        \item 800 MHz
-        \item 1000 MHz
-        \item 1200 MHz
-        \item 1300 MHz
-        \item 1500 MHz
-        \item 1700 MHz
-        \item 1900 MHz
-        \item 2000 MHz
-        \item 2200 MHz
-        \item 2400 MHz
-        \item 2600 MHz
-        \item 2800 MHz
-        \item 2900 MHz
-        \item 3100 MHz
-        \item 3300 MHz
-        \item 3301 MHz
+        \item 800~MHz
+        \item 1000~MHz
+        \item 1200~MHz
+        \item 1300~MHz
+        \item 1500~MHz
+        \item 1700~MHz
+        \item 1900~MHz
+        \item 2000~MHz
+        \item 2200~MHz
+        \item 2400~MHz
+        \item 2600~MHz
+        \item 2800~MHz
+        \item 2900~MHz
+        \item 3100~MHz
+        \item 3300~MHz
+        \item 3301~MHz
     \end{itemize}
 \end{multicols}
 
-The last of these options, 3301 MHz, is actually the driver's way of exposing
+[TBD] The last of these options, 3301~MHz, is actually the driver's way of exposing
 the ability to use Intel Turbo Boost.[CITE — CPUFreq using max frequency + 1 Mhz]
-Our CPU's base frequency is 3300 MHz,
-with Turbo support for 3700 MHz. Requesting that the CPU frequency be set to
-3301 MHz simply causes the CPU the enter Turbo Boost mode, at which point the
-frequency will range between 3400 MHz and 3700 MHz depending on the
+Our CPU's base frequency is 3300~MHz,
+with Turbo support for 3700~MHz. Requesting that the CPU frequency be set to
+3301~MHz simply causes the CPU the enter Turbo Boost mode, at which point the
+frequency will range between 3400~MHz and 3700~MHz depending on the
 workload.[CITE — HOW DOES TURBO BOOST OPERATE]

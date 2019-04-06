@@ -5,8 +5,8 @@
 \label{sec:undervolt-test.sh}
 
 The script used in §\ref{sec:unstableOPPs} to assist us in collecting data
-regarding which OPPs result in a system crash is given in Listing
-\ref{lst:undervolt-test.sh}.
+regarding which OPPs cause system instability is given in
+Listing~\ref{lst:undervolt-test.sh}.
 
 \lstinputlisting[language=Bash,
     breakatwhitespace=false,
@@ -15,10 +15,10 @@ regarding which OPPs result in a system crash is given in Listing
     {undervolt-test.sh}
 
 The script takes the frequency to test in MHz as its first argument, e.g.
-\code{2600} for 2600 MHz, and optionally takes a second argument, \code{all}.
+\code{2600} for 2600~MHz, and optionally takes a second argument, \code{all}.
 If \code{all} is specified, we test all voltage offsets listed in the file
 \code{undervolt-list.txt}, which simply lists all the multiples of 10 in order
-from $-10$ to $-400$, as can be seen in Listing \ref{lst:undervolt-list.txt}
+from $-10$ to $-400$, as can be seen in Listing~\ref{lst:undervolt-list.txt}
 for clarity.
 
 If \code{all} is not specified, a list of voltage offsets specific
@@ -26,29 +26,30 @@ to the given frequency is used, as found in the file
 \code{undervolt-list-\textit{f}.txt}, where \code{\textit{f}} is the given
 frequency. For example, specifying \code{2600} as the frequency and not
 specifying \code{all} will result in the file \code{undervolt-list-2600.txt}
-being used as the list of voltage offsets to test. The voltage offsets given in
-such files are expressed in milivolts, as they will be passed directly to the
-\code{undervolt} utility, which expects voltage offsets in these units, as
-explained in §\ref{sec:undervolt}.
+being used as the list of voltage offsets to test. Such a file will list
+\emph{all} the integers in decreasing order from the "upper bound plus 10~mV"
+(as discussed in \ref{sec:unstableOPPs}) expressed in mV, to $-400$. As an
+example for clarity, \code{undervolt-list-2600.txt} is given in
+Listing~\ref{lst:undervolt-list-2600.txt} for clarity.
+
+The voltage offsets given in these files are expressed in millivolts, as they
+will be passed directly to the \code{undervolt} utility, which expects voltage
+offsets in these units, as explained in §\ref{sec:undervolt}.
 
 \lstinputlisting[language=C,
     caption={\label{lst:undervolt-list.txt}
-    Imprecise list of voltage offsets to test for all frequencies, in
-    millivolts — \code{undervolt-list.txt}}]
+    Non-granular list of voltage offsets to test for all frequencies, in
+    millivolts — excerpt of \code{undervolt-list.txt}}]
     {undervolt-list.txt}
 
+\lstinputlisting[language=C,
+    caption={\label{lst:undervolt-list-2600.txt}
+    Granular list of voltage offsets to test for 2600~MHz, in
+    millivolts — excerpt of \code{undervolt-list-2600.txt}}]
+    {undervolt-list-2600.txt}    
+
 \subsection{Kernel modules}
-
-[TBD]
-
-We create a custom \code{sha1sum} binary which changes the core voltage during its
-execution.
-Need to execute in kernel mode so that MSRs can be read/written in order to
-change the voltage.
-We create a custom kernel module for this purpose which computes SHA-1 hash
-when inserted into the kernel via \code{insmod}.
-
-====
+\label{sec:modules}
 
 In order to demonstrate that it is possible to use a \clkscrew{} style attack
 on this platform, we attempt to compute an incorrect SHA-1 hash of some data.
@@ -58,8 +59,9 @@ The process is as follows:
     \item Choose a known critical point.
     \item Put the system into a stable OPP near the chosen critical point.
     \item Begin computing the SHA-1 hash.
-    \item Whilst the hash is being computed, temporarily put the system into an
-        unstable OPP near the chosen critical point.
+    \item \label{item:induceFault} Whilst the hash is being computed,
+        \emph{temporarily} put the system into an unstable OPP near the chosen
+        critical point.
     \item The hash computation ends, and we hope to see an incorrect hash.
 \end{enumerate}
 
@@ -69,27 +71,32 @@ the necessary MSR. This is ultimately done via execution of the assembly-level
 architecture~\cite[Vol. 2, §§4.3–4]{intelDevManual}. Since these instructions
 must be executed at privilege level 0 or in real-address mode, we cannot
 execute these instructions from userspace; we need to do so in kernel mode. We
-therefore write a custom kernel driver to set the OPP at the necessary times.
+therefore write a custom kernel module to set the OPP at the necessary times.
 
-For the sake of simply forming a proof-of-concept that computational faults can
-occur, rather than actually producing a fully-formed attack, we adapt the source
-code of GnuPG's \code{sha1sum} program~\cite{gnupgSHA} into a kernel module
-which, upon being inserted into the kernel via \code{insmod}, computes the
-SHA-1 hash of a file with a predefined filepath (namely
-\code{/tmp/.\_shatest\_data}), and logs the computed hash to the console. We
-adapt some code by Michael Guyver~\cite{guyverCode} to develop a set of C
-functions which can read from and write to the MSRs appropriately in order to
-set the core voltage offset as required. We then alter the hash computation code
-so that the system is temporarily put into an unstable OPP as in step (3) above.
+For the sake of simply demonstrating that we can induce a computational fault,
+rather than actually developing a fully-formed attack, we adapt the source code,
+\code{sha1sum.c}, of GnuPG's \code{sha1sum} program~\cite{gnupgSHA} into a
+kernel module which, upon being inserted into the kernel via \code{insmod},
+computes the SHA-1 hash of a file with a predefined filepath (namely
+\code{/tmp/.\_shatest\_data}), and displays the computed hash on the console.
+We adapt some code by Michael Guyver~\cite{guyverCode} to develop a set of C
+functions which allow the module to read from and write to the MSR with address
+0x150 appropriately in order to set the core voltage offset as required. We then
+alter the hash computation code so that the system is temporarily put into an
+unstable OPP as in step~\ref{item:induceFault} above.
 
-To this end, we have written a kernel module dubbed \code{bad\_sha}, which is
-given in Listing \ref{lst:bad-sha.c}. The header file \code{msr.h} which
-contains the functions for reading from and writing to MSRs is given in
-Listing \ref{lst:msr.h}
+To this end, we have written a kernel module dubbed \code{bad\_sha} which sets
+the core voltage offset as required whilst it computes that SHA-1 hash. The 
+functions which differ from those in~\cite{gnupgSHA} and which we have added
+can be seen in Listing~\ref{lst:bad-sha.c}; note that \code{main} has been
+renamed to \code{main\_routine}. The header file \code{msr.h} which contains
+the functions for reading from and writing to MSRs can be seen in
+Listing~\ref{lst:msr.h}.
 
 \lstinputlisting[language=C,
     caption={\label{lst:bad-sha.c}
-    Source code for the \code{bad\_sha} kernel module — \code{bad-sha.c}}]
+    Altered code of \code{sha1sum.c} as used in the \code{bad\_sha} kernel
+    module — excerpt of \code{bad-sha.c}}]
     {bad-sha.c}
 
 \lstinputlisting[language=C,

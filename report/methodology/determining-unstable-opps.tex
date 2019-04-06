@@ -4,31 +4,34 @@
 We want to determine which OPPs are stable, and which OPPs are unstable, i.e.
 those for which the system operates normally, and those which cause the system
 to crash, respectively. Such a crash typically manifests as a kernel panic.
-In particular, we would like to know which specific OPP lies on the boundary
+In particular, we would like to know which specific OPPs lie on the boundary
 between the stable realm and the unstable realm. Henceforth, such an OPP is
 referred to as a \emph{crtitical point}. The following basic process lays out
 how we can determine these critical points.
 
 \begin{enumerate}
-    \item Choose a frequency from the set of possible frequencies, and set that
-        as the current CPU frequency.
-    \item Decrease the CPU voltage by the smallest possible amount
-        (i.e. $\frac{1}{1024}$~volts).
-    \item Perform some fixed computational task, e.g. compute the SHA-1 hash of
-        some predefined data. If the system crashes, record the current
-        OPP as a critical point; else, go to step (2).
-    \item Go to step (1), choosing a previously unchosen frequency if one
-        exists; else, we have determined all the critical points.
+    \item \label{item:chooseFreq} Choose a frequency that has not yet been
+        chosen from the set of possible frequencies, and set that as the current
+        CPU frequency. If no previously unchosen frequency exists, we are done,
+        and have determined all the critical points.
+    \item \label{item:computeSHA} Perform some fixed computational task, e.g.
+        compute the SHA-1 hash of some predefined data. If the system crashes,
+        record the current OPP as a critical point and go to step
+        \ref{item:chooseFreq}.
+    \item \label{item:undervolt} Decrease the CPU voltage by the smallest
+        possible amount (i.e. $\frac{1}{1024}$~volts), then go to step
+        \ref{item:computeSHA}.
 \end{enumerate}
 
 In practice, we expand upon this process in order to collect a more suitable
 dataset. The process given above is repeated numerous times for each possible
 frequency in order to obtain a reasonable sample size from which to determine
-an average voltage offset which renders the system unstable. Ideally, this data
-collection would be automated, with the testbench running through the process
-detailed above on boot, recording the tested OPPs to disk, and rebooting after
-a system crash to repeat the process for different frequencies as required. In
-practice, this is not possible, for the following reasons:
+an average voltage offset which renders the system unstable for that frequency.
+Ideally, this data collection would be automated, with the testbench running
+through the process detailed above on boot, recording the tested OPPs to disk,
+and rebooting after a system crash to repeat the process for different
+frequencies as required. In practice, this is not possible, for the following
+reasons:
 
 \begin{itemize}
     \item any data that ought to be written to disk may not actually be flushed
@@ -49,15 +52,15 @@ and §\ref{sec:undervolt}, respectively.
 
 The \code{undervolt} utility expects voltage offsets to be expressed in
 millivolts (mV, units of $\frac{1}{1000}$~volts) rather than the MSR interface's
-expected units of $\frac{1}{1024}$~volts. It then rounds the given value in
+expected units of $\frac{1}{1024}$~volts. It then rounds the value given in
 millivolts to the nearest multiple of $\frac{1}{1024}$~volts, and writes the
 appropriate value to the MSR. As such, the "smallest possible amount" mentioned
-in step (2) of the process above is taken as 1~mV rather than
+in step~\ref{item:undervolt} of the process above is taken as 1~mV rather than
 $\frac{1}{1024}$~volts. The process we end up using is described by the
-flowchart in Figure \ref{fig:data-collection-flowchart}. Since we cannot fully
-automate this process as discussed earlier, ee collect the data by hand by
+flowchart in Figure~\ref{fig:data-collection-flowchart}. Since we cannot fully
+automate this process as discussed earlier, we collect the data by hand by
 running through this process with the aid of a shell script,
-\code{undervolt-test.sh}, details of which are given in
+\code{undervolt-test.sh}, the details of which are given in
 §\ref{sec:undervolt-test.sh}.
 
 \begin{figure}[!htb]
@@ -69,21 +72,42 @@ running through this process with the aid of a shell script,
     }
 \end{figure}
 
-In particular, we first find the critical point to the nearest 10~mV, performing
-three (3) repetitions. We assume that the crticial point does not lie above the
-maximum of these data points, plus another 10~mV for assurance. We then find the
-critical point to as much accuracy as is possible (i.e. to the nearest 10~mV)
-by testing every possible voltage offset within this narrower range, performing
-ten (10) repetitions. We plot the mean, minimum, and maximum of these 10 data
-points for each possible frequency in Figure \ref{fig:critical-points-graph}.
+In particular, for each frequency, we first find the critical point to the
+nearest 10~mV, performing three (3) repetitions. We assume the the voltage
+offset of the critical point for the current frequency has an upper bound equal
+to the maximum (least negative) of these three samples plus 10~mV for assurance.
+We then find the critical point to as much accuracy as is possible (i.e. to the 
+nearest 1~mV) by testing every possible voltage offset below this upped bound,
+performing ten (10) repetitions. In Figure~\ref{fig:critical-points-graph}, we
+plot the mean, minimum, and maximum of these 10 new data points for each
+possible frequency.
 
 \begin{figure}[!htb]
     \center{\includegraphics[width=\columnwidth,keepaspectratio]{critical-points-graph.png}}
     \caption{
         \label{fig:critical-points-graph}
-        Graph plotting voltage offset against frequency for data points we have
-        collected concerning critical points. Blue crosses are the mean voltage
-        offset for critical points found for each frequency. Red diamonds are
-        the bounds for the corresponding error bars.
+        Graph plotting highest unstable voltage offset against frequency, using
+        the data collected in determining the critical points. The blue cross
+        for a given frequency is the mean of the voltage offsets recorded for
+        that frequency. The red diamonds are the bounds for the corresponding
+        error bars (maximum and minimum of the recorded voltage offsets).
     }
 \end{figure}
+
+Observe in Figure~\ref{fig:critical-points-graph} the clear trend between
+frequency and the highest unstable voltage offset for a given frequency.
+A trend line drawn for this dataset would separate the graph into two regions:
+
+\begin{itemize}
+    \item the upper-left region, which contains all the stable OPPs; and
+    \item the lower-right region, which contains all the unstable OPPs.
+\end{itemize}
+
+We will use this data to choose a stable OPP and an unstable OPP which both use
+the same frequency and lie near the stable–unstable boundary line. In
+§\ref{sec:modules}, we will try to induce a computational fault by using the
+chosen stable OPP and temporarily switching to the chosen unstable OPP whilst a
+computation is in progress. The larger the error bars are near this dividing
+line for a given frequency, the fuzzier the distinction between the stable and
+unstable regions for that frequency. As such, since the data for 2600~MHz has
+the smallest error bar, we will choose OPPs with a frequency of 2600~MHz.
