@@ -28,9 +28,9 @@ frequency. For example, specifying \code{2600} as the frequency and not
 specifying \code{all} will result in the file \code{undervolt-list-2600.txt}
 being used as the list of voltage offsets to test. Such a file will list
 \emph{all} the integers in decreasing order from the "upper bound plus 10~mV"
-(as discussed in \ref{sec:unstableOPPs}) expressed in mV, to $-400$. As an
+(as discussed in §\ref{sec:unstableOPPs}) expressed in mV, to $-400$. As an
 example for clarity, \code{undervolt-list-2600.txt} is given in
-Listing~\ref{lst:undervolt-list-2600.txt} for clarity.
+Listing~\ref{lst:undervolt-list-2600.txt}.
 
 The voltage offsets given in these files are expressed in millivolts, as they
 will be passed directly to the \code{undervolt} utility, which expects voltage
@@ -86,7 +86,7 @@ alter the hash computation code so that the system is temporarily put into an
 unstable OPP as in step~\ref{item:induceFault} above.
 
 To this end, we have written a kernel module dubbed \code{bad\_sha} which sets
-the core voltage offset as required whilst it computes that SHA-1 hash. The 
+the core voltage offset as required whilst it computes the SHA-1 hash. The 
 functions which differ from those in~\cite{gnupgSHA} and which we have added
 can be seen in Listing~\ref{lst:bad-sha.c}; note that \code{main} has been
 renamed to \code{main\_routine}. The header file \code{msr.h} which contains
