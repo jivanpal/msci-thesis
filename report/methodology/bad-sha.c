@@ -1,8 +1,4 @@
-/* SHA-1 code taken from GnuPG 1.3.92. 
- * Source: ftp://ftp.gnupg.org/gcrypt/binary/sha1sum.c
- */
-
-#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+/* SHA-1 code is taken from GnuPG 1.3.92 */
 #define KERN_MSG KERN_ALERT KBUILD_MODNAME ": "
 
 #define STABLE_VOLTAGE (-230)
@@ -42,8 +38,7 @@ static void transform(SHA1_CONTEXT *hd, unsigned char *data)
 }
 
 /* Get the lowercase hexadecimal digit correponding to
- * a given number that is between 0 and 15 (inclusive).
- */
+ * a given number that is between 0 and 15 (inclusive). */
 char digit_to_hex(int n)
 {
     return n < 10 ? '0' + n : 'a' + n - 10;
@@ -51,8 +46,7 @@ char digit_to_hex(int n)
 
 /* Put the hash described by the given SHA-1 context `ctx`
  * into the string `hash`. `hash` must point to a buffer
- * with sufficient memory allocated (at least 41 bytes).
- */
+ * with sufficient memory allocated (at least 41 bytes). */
 void hash_from_context(char *hash, SHA1_CONTEXT ctx)
 {
     int i;
@@ -67,8 +61,7 @@ void hash_from_context(char *hash, SHA1_CONTEXT ctx)
 }
 
 /* Compute the SHA-1 hash of the file at path
- * `filename` and print it via `printk()`.
- */
+ * `filename` and print it via `printk()`. */
 int main_routine(char* filename)
 {
     struct file *fp;
@@ -104,19 +97,21 @@ int main_routine(char* filename)
     return 0;
 }
 
-static int __init mod_init(void) {
+static int __init mod_init(void)
+{
 	write_vcore_dec(STABLE_VOLTAGE);
     printk(KERN_MSG "Inserting module\n");
     return main_routine("/tmp/._shatest_data");
 }
 module_init(mod_init);
 
-static void __exit mod_exit(void) {
+static void __exit mod_exit(void)
+{
 	write_vcore_dec(STABLE_VOLTAGE);
     printk(KERN_MSG "Removed module\n");
 }
 module_exit(mod_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Jivan Pal - jivanpal.com");
+MODULE_AUTHOR("Navjivan Pal - jivanpal.com");
 MODULE_DESCRIPTION("Compute SHA-1 hash of `/tmp/._shatest_data` in kernel mode");
