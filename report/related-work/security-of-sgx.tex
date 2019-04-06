@@ -1,3 +1,19 @@
-\section{The Security of Intel SGX}
+\section{The Security of Intel Software Guard Extensions (SGX)}
 
-[TBD]
+The possibility of Intel SGX being vulnerable to power management attacks is
+discussed in~\cite{securityOfSGX}. In particular, the author writes:
+
+\begin{quotation}
+    "We remark that the \clkscrew{} attack was not demonstrated specifically
+    against SGX. However, as the researchers argue, the attack is relevant for
+    all hardware that enables energy management (which is essentially all modern
+    platforms). We note that AWS does provide processor state control for EC2
+    instances as required for the CLKSCREW attack, but stress that the attack
+    has not been demonstrated on this specific platform. Thus, the question of
+    the attack’s relevance to SGX in real cloud environments is still open."
+\end{quotation}
+
+Whether SGX is indeed vulnerable to the attacks on ARM TrustZone detailed
+in~\cite{clkscrew} is still up for debate, hence our desire to demonstrate them
+ourselves. We do not actually explore this avenue in this report, but this is
+discussed further in §\ref{sec:future}.
