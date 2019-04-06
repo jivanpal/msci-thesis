@@ -1,10 +1,19 @@
 \section{\clkscrew{}}
 
-[TBD]
+The \clkscrew{} paper~\cite{clkscrew} details a newly discovered (circa 2017)
+family of attacks dubbed \clkscrew{} that exploit the security vulnerabilities
+of DVFS discussed in §\ref{sec:dvfs-security}. The secure execution environment,
+namely ARM TrustZone, of a Nexus 6 smartphone is compromised via this attack
+vector, with two successful attacks on the platform given in detail.
 
-Family of attacks with DVFS as the attack vector, demonstrated on an ARM device
-(Nexus 6 smartphone).
-Attacker injects fault during an AES decryption routine (running in ARM
-TrustZone) via a malicious kernel driver to cause incorrect plaintext to be
-generated from ciphertext.
-Differential fault analysis (Tunstall, 2011) yields the AES key in minutes.
+In particular, the goal of the first attack is to extract an AES key. This is
+done by inducing a precise computational fault during decryption of a ciphertext
+to yield an incorrect plaintext. The fault is induced with the aid of a
+mailicious kernel driver that alters DVFS paramters as and when required. This
+code must be executed in kernel mode since the instructions that allow DVFS
+paramters to be altered are privileged. The incorrect plaintext can then be
+analysed alongside the correct plaintext to yield a relatively small set of key 
+hypotheses via a technique known as differential fault analysis~\cite{tunstallDFA}.
+We seek to replicate this attack on the Intel Core platform in order to
+substantiate the theory that this attack vector is viable across many, if not
+all, modern CPUs that support DVFS via software, as discussed in~\cite[§6.1]{clkscrew}.
