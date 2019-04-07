@@ -7,6 +7,14 @@
 \date{8 April 2019}
 
 \makeatletter
+
+% Typeset chapter titles also in `twocolumn` mode rather than default `onecolumn`,
+% also resulting in no page break when a new chapter begins
+\renewcommand\chapter{\global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter}
+\def\@topnewpage[#1]{#1}
+
 \begin{titlepage}
     \begin{center}
         \vspace*{\fill}
@@ -38,10 +46,18 @@
 \end{titlepage}
 \makeatother
 
+\onecolumn
+
 \input{abstract}
 
+{\let\clearpage\relax
+\vspace*{2em}
 \tableofcontents
+}
+
 \newpage
+
+\twocolumn
 
 \subimport{intro-and-background/}{main}
 
@@ -51,6 +67,7 @@
 
 \subimport{conclusion/}{main}
 
+\clearpage
 {\raggedright\printbibliography}
 
 \end{document}
