@@ -85,10 +85,12 @@ frequencies is quite limited. SysFS tells us via a file named
     \end{itemize}
 \end{multicols}
 
-[TBD] The last of these options, 3301~MHz, is actually the driver's way of exposing
-the ability to use Intel Turbo Boost.[CITE — CPUFreq using max frequency + 1 Mhz]
-Our CPU's base frequency is 3300~MHz,
-with Turbo support for 3700~MHz. Requesting that the CPU frequency be set to
-3301~MHz simply causes the CPU the enter Turbo Boost mode, at which point the
-frequency will range between 3400~MHz and 3700~MHz depending on the
-workload.[CITE — HOW DOES TURBO BOOST OPERATE]
+The last of these options, 3301~MHz, is actually the driver's way of exposing
+the ability to use Intel Turbo Boost~\cite{linuxIntelPState}. Our CPU's base
+frequency is 3300~MHz with a maximum Turbo frequency of 3700~MHz~\cite{cpuSpecs}.
+Requesting that the CPU frequency be set to 3301~MHz or higher simply causes
+the CPU to exclusively use Turbo P-states, meaning that CPU core will maintain
+frequencies between 3400~MHz and 3700~MHz for as long as physically possible,
+with each core's individual frequency varying depending on the workload. For the
+sake of our analysis, we treat this 3301~MHz option as representing the maximum
+Turbo frequency of 3700~MHz.
