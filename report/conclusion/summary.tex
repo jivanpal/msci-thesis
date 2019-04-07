@@ -1,3 +1,36 @@
-\section{Summary}
+\section{Summary and discussion}
+\label{sec:summary}
 
-In summary, we have managed to observe faults induced via the use 
+In summary, we have been able to meet our goal of successfully demonstrating
+that hardware-based power mangement mechanisms (specifically DVFS) present in
+an Intel Core desktop processor (namely a 4th generation Haswell unit) that are
+exposed via software can be exploited in order to affect the result of a
+computation. Though our observations are infrequent, they are undeniably
+present, and the ubiquity of software-exposed DVFS features in these processors
+ultimately means that the proof of concept detailed in §\ref{sec:observing-fault}
+should be easily portable to any Intel Core processor manufactured to date;
+if a proper attack can be developed that makes use of this attack vector, then
+all Intel Core processors should be vulnerable to that attack. Moreover, the
+specific processor used in our experimentation is incapable of per-core DVFS as
+discussed in §\ref{sec:clkscrew-review}, demonstrating for the first time that
+a power management attack is viable on such hardware.
+
+With regard to SGX, Intel's secure execution environment, this remains to be
+explored proper, but it is reasonable to assume that programs exclusively
+using memory in an SGX enclave are just as vulnerable as those that do not
+take advantage of SGX at all. This is because the faults we have induced occur
+within the CPU itself, and not in memory, resulting in logic being carried out
+within the CPU being affected; the content of CPU registers themselves are
+likely to be made erroneous, resulting in the observed computational errors.
+
+We remark that the data collection carried out in §\ref{sec:unstableOPPs} and
+the experimentation conducted in §\ref{sec:observing-fault} could be improved
+upon in hindsight. The decision to determine critical voltages only to the
+nearest 1~mV rather than the highest possible degree of accuracy, namely to the
+nearest $\frac{1}{1024}$~volts, was made due to the then-assumed necessity of
+using the \code{undervolt} utility discussed in §\ref{sec:undervolt} to perform
+voltage scaling. Since developing the kernel module discussed in §\ref{sec:bad-sha},
+it is now understood that this data collection could be done with greater
+precision. With regards to determining the optimal values to produce an
+observable fault, this ought to have been done in a more systematic manner,
+which would have been possible given the time to develop the necessary tools.

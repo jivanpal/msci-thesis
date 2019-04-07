@@ -1,12 +1,25 @@
 \section{Future work}
 \label{sec:future}
 
-[TBD] Once proof of concept is complete, work on writing malicious kernel driver
-which targets a legitimate sha1sum binary running in user mode to achieve the
-same effect.
-Now have access to a 7th generation (Kaby Lake) machine for further
-investigation — Intel Software Guard Extensions (SGX; analogous to ARM
-TrustZone) introduced in 6th generation (Skylake).
-Would be nice to explore breaking SGX, even better if positive results
+As discussed in §\ref{sec:clkscrew-review}, prior research in this area has
+demonstrated complete attacks using power management as an attack vector. We
+would like to have explored this ourselves and develop the necessary kernel
+module as discussed in §\ref{sec:observing-fault} which would prey on programs
+running in userspace to achieve the same effect as we have already observed.
 
-====
+Once such a kernel module is developed, we would also like to explore SGX
+specifically, as discussed in §\ref{sec:summary}, attempting to observe the
+same results once again, but with a program that makes exclusive use of memory
+in an SGX enclave as the victim. This would require access to a 6th generation
+Skylake or later Intel Core processor, as SGX is not present on earlier units.
+If such an observation is made, the natural next step is to replicate the AES
+key extraction attack in~\cite{clkscrew} on this platform, with the AES
+decryption program running exclusively in an SGX enclave.
+
+More recent processors using the x86 instruct set implement specific
+instructions for efficiently computing the results of AES rounds. These
+additional instructions are known as the AES New Instructions (AES-NI)~\cite{aesni}.
+If the AES key extraction attack is possible on devices using Intel Core
+processors that support SGX, it is in our interest to explore whether the AES
+key extraction attack in~\cite{clkscrew} is still possible if AES-NI
+instructions are being employed.
