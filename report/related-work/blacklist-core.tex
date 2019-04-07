@@ -1,8 +1,8 @@
 \section{Blacklist Core}
 
-It is only natural to want to seek mitigations against attack vectors, and
-\clkscrew{} is no exception. The Blacklist core technology described
-in~\cite{blacklistCore} is one such mitigation, involving additional constructs
+It is only natural to want to design mitigations against attack vectors, and
+\clkscrew{} is no exception. The Blacklist Core technology described
+in~\cite{blacklistCore} is one such mitigation design, involving additional constructs
 within the CPU and a machine-learning algorithm. During normal operation of the
 device, the algorithm will attempt to determine those OPPs in which
 computational faults can occur and blacklist them so that in the event of such
@@ -15,8 +15,10 @@ valuable use to the end-user will be denied.
 
 It is already standard practice that hardware vendors conservatively stipulate
 their own recommended OPPs for devices, as can be seen in the DVFS drivers that
-they provide for devices using their hardware. Rather than implement a complex
-machine-learning algorithm in CPUs, perhaps it is better to simply hard-code
-these vendor-stipulated OPPs into the relevant hardware, so that requests to
-set DVFS parameters beyond these conservative limits are denied across the
-board.
+they provide for devices using their hardware. The efficacy and purpose of a
+design such as that of Blacklist Core is therefore questionable: rather than
+implement a complex machine-learning algorithm in CPUs, perhaps it is better to
+simply hard-code these vendor-stipulated OPPs into the relevant hardware, so
+that requests to set DVFS parameters beyond these conservative limits are always
+denied.
+

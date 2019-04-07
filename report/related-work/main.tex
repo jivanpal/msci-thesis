@@ -1,18 +1,19 @@
 \chapter{Related work}
 
-This report is, in large part, a direct response to the research pioneered by
-Adrian Tang et al. in his USENIX conference paper on \clkscrew{}~\cite{clkscrew}
-published in August 2017. There does not appear to be any literature published
-prior to this on the subject matter covered in this
-report, though similar attack vectors have been explored in the past, such as
+In this section, we cover existing literature relevant to the subject matter of
+this report. This report is, in large part, a direct response to the research
+pioneered by Adrian Tang et al. in his USENIX conference paper on
+\clkscrew{}~\cite{clkscrew} published in August 2017. There does not appear to
+be any directly relevant literature published prior to this, though similar
+attack vectors have been explored in the past, such as
 the Rowhammer exploit~\cite{rowhammer} first published in June 2014. Here, we
-cover the existing work by Tang in \cite{clkscrew} and his related paper
+cover the existing work in \cite{clkscrew} and the related paper
 concerning the Blacklist Core technology~\cite{blacklistCore} developed to
 defend against \clkscrew{}-style attacks. We also touch on the existence of
 Intel's trusted execution environment, dubbed Software Guard Extensions (SGX),
-and how the \clkscrew{} attack may be a suitable attack vector for SGX, as also
+and how the power management attacks may be a suitable attack vector for SGX, as also
 mentioned in~\cite{securityOfSGX}. In fact, the work detailed in this report
-could lay the foundation for developing a \clkscrew{}-style attack against
+could lay the foundation for developing a power management attack against
 Intel SGX, as discussed in §\ref{sec:future}.
 
 \input{clkscrew}

@@ -2,26 +2,33 @@
 
 The \clkscrew{} paper~\cite{clkscrew} details a newly discovered (circa 2017)
 family of attacks dubbed \clkscrew{} that exploit the security vulnerabilities
-of DVFS discussed in §\ref{sec:dvfs-security}. The secure execution environment,
-namely ARM TrustZone, of a Nexus 6 smartphone is compromised via this attack
-vector, with two successful attacks on the platform given in detail.
+of DVFS discussed in §\ref{sec:dvfs-security}. The authors detail how the secure
+execution environment, namely ARM TrustZone, of a Nexus 6 smartphone can be
+compromised via this attack vector, describing two successful attacks on the
+platform.
 
 In particular, the goal of the first attack is to extract an AES key. This is
-done by inducing a precise computational fault during decryption of a ciphertext
-to yield an incorrect plaintext. The fault is induced with the aid of a
-mailicious kernel driver that alters DVFS paramters as and when required. This
-code must be executed in kernel mode since the instructions that allow DVFS
-paramters to be altered are privileged. The incorrect plaintext can then be
+done by inducing a precisely timed computational fault during decryption of a
+ciphertext to yield an incorrect plaintext. The fault is induced with the aid of
+a mailicious kernel driver that alters DVFS parameters at the appropriate times
+once it detects that the AES decryption program is invoked within ARM TrustZone.
+This malicious code must be executed in kernel mode since the instructions that
+allow DVFS paramters to be altered are privileged. The incorrect plaintext can then be
 analysed alongside the correct plaintext to yield a relatively small set of key 
 hypotheses via a technique known as differential fault analysis~\cite{tunstallDFA}.
-We seek to replicate this attack on the Intel Core platform in order to
-substantiate the theory that this attack vector is viable across many, if not
+We ultimately seek to replicate this attack on the Intel Core platform in order
+to substantiate the theory that this attack vector is viable across many, if not
 all, modern CPUs that support DVFS via software, as discussed in~\cite[§6.1]{clkscrew}.
 
 We note that the attacks demonstrated on the Nexus 6 rely on the fact that DVFS
 is possible on a per-core basis. That is, each CPU core of the device has its
-own DVFS parameters, allowing the malicious kernel driver to execute
-instructions on one core (the attacking core) whilst the target process (i.e.
-the AES decryption program being executed in ARM TrustZone) is pinned to another
-core (the victim core). In our reserach, we explore the possibility of reliably
-inducing faults when no such per-core DVFS regulation is possible.
+own DVFS parameters, allowing the malicious kernel driver to run on one core
+(the attacking core) whilst the target process (i.e. the AES decryption program
+being executed in ARM TrustZone) is pinned to another core (the victim core).
+This allows the malicious code to only cause instability on the victim core, as
+opposed to doing so on both the victim core and attacking core, which could
+result in faults occurring in the malicious code itself, which is undesirable
+from the attacker's perspective. In our reserach, we explore the possibility of
+reliably inducing faults when no such per-core DVFS regulation is possible,
+i.e. when all CPU cores are forced to use the same frequency and voltage as
+each other.
