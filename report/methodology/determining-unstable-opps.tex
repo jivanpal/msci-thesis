@@ -1,13 +1,15 @@
-\section{Determining unstable operating performance points}
+\section{Determining the stability of operating performance points}
 \label{sec:unstableOPPs}
 
-We want to determine which OPPs are stable, and which OPPs are unstable, i.e.
-those for which the system operates normally, and those which cause the system
+In this section, we determine which OPPs are stable and which OPPs are unstable,
+i.e. those in which the system operates normally and those which cause the system
 to crash, respectively. Such a crash typically manifests as a kernel panic.
 In particular, we would like to know which specific OPPs lie on the boundary
 between the stable realm and the unstable realm. Henceforth, such an OPP is
-referred to as a \emph{crtitical point}. The following basic process lays out
-how we can determine these critical points.
+referred to as a \textit{crtitical point}, and the voltage offset associated
+with a critical point is called the \textit{critical voltage} of the frequency
+associated with that same critical point. The following basic process lays out
+how we can determine these critical points:
 
 \begin{enumerate}
     \item \label{item:chooseFreq} Choose a frequency that has not yet been
@@ -44,11 +46,11 @@ reasons:
 \end{itemize}
 
 Thus, to save time in collecting this data, we narrow down the range in which
-the critical point lies for a given frequency by only testing certain OPPs, and
-then take the time to more precisely find the critical point by testing all OPPs
-within this narrower range of voltage offsets. We do this with the aid of the
-\code{cpupower} and \code{undervolt} utilities discussed in §\ref{sec:cpupower}
-and §\ref{sec:undervolt}, respectively.
+the critical voltage lies for each frequency by only testing certain voltage
+offsets. We then take the time to more precisely determine the critical voltage
+for each frequency by testing all voltage offsets within this narrower range.
+We do this with the aid of the \code{cpupower} and \code{undervolt} utilities
+discuss in §\ref{sec:cpupower} and §\ref{sec:undervolt}, respectively.
 
 The \code{undervolt} utility expects voltage offsets to be expressed in
 millivolts (mV, units of $\frac{1}{1000}$~volts) rather than the MSR interface's
@@ -72,15 +74,15 @@ running through this process with the aid of a shell script,
     }
 \end{figure}
 
-In particular, for each frequency, we first find the critical point to the
-nearest 10~mV, performing three (3) repetitions. We assume that the voltage
-offset of the critical point for the current frequency has an upper bound equal
-to the maximum (least negative) of these three samples plus 10~mV for assurance.
-We then find the critical point to as much accuracy as is possible (i.e. to the 
-nearest 1~mV) by testing every possible voltage offset below this upper bound,
-performing ten (10) repetitions. In Figure~\ref{fig:critical-points-graph}, we
-plot the mean, minimum, and maximum of these 10 new data points for each
-possible frequency.
+In particular, for each frequency, we first find the critical voltage to the
+nearest 10~mV, performing three (3) repetitions. We assume that the critical
+voltage for the current frequency is bounded above by the maximum (least
+negative) of these three samples plus 10~mV. We then find the critical voltage
+to as much accuracy as is possible (i.e. to the nearest 1~mV) by testing every
+possible voltage offset below this upper bound, performing ten (10) repetitions.
+In Figure~\ref{fig:critical-points-graph}, we plot the mean, minimum, and
+maximum of these 10 new data points for each possible frequency, which
+collectively represent what the critical voltage is for that frequency.
 
 \begin{figure}[!htb]
     \center{\includegraphics[width=\columnwidth,keepaspectratio]{critical-points-graph.png}}
@@ -102,12 +104,3 @@ A trend line drawn for this dataset would separate the graph into two regions:
     \item the upper-left region, which contains all the stable OPPs; and
     \item the lower-right region, which contains all the unstable OPPs.
 \end{itemize}
-
-We will use this data to choose a stable OPP and an unstable OPP which both use
-the same frequency and lie near the stable–unstable boundary line. In
-§\ref{sec:modules}, we will try to induce a computational fault by using the
-chosen stable OPP and temporarily switching to the chosen unstable OPP whilst a
-computation is in progress. The larger the error bars are near this dividing
-line for a given frequency, the fuzzier the distinction between the stable and
-unstable regions for that frequency. As such, since the data for 2600~MHz has
-the smallest error bar, we will choose OPPs with a frequency of 2600~MHz.

@@ -1,0 +1,71 @@
+\section{Demonstrating the viability of power management attacks}
+\label{sec:observing-fault}
+
+In order to demonstrate that a power management attack is possible on this
+platform, we attempt to induce a computational fault whilst the SHA-1 hash of
+some known data with a known hash is being computed. The aim is for the fault
+to result in an incorrect hash being computed. The process is as follows:
+
+\begin{enumerate}
+    \item Choose a critical point.
+    \item \label{item:stableOPP} Put the system into a stable OPP near the
+        chosen critical point.
+    \item \label{item:beginSHA} Begin computing the SHA-1 hash of the known data.
+    \item \label{item:induceFault} Whilst the hash is being computed,
+        \emph{briefly} put the system into an unstable OPP near the chosen
+        critical point.
+    \item The hash computation ends, and we hope to see an incorrect hash.
+\end{enumerate}
+
+We use the data collected in §\ref{sec:unstableOPPs} to choose a stable OPP and
+an unstable OPP which both use the same frequency and lie near the
+stable–unstable boundary line. The larger the error bars are near this dividing
+line for a given frequency, the less clear the distinction between the stable and
+unstable regions for that frequency. As such, since the data for 2600~MHz has
+the smallest error bar, we will choose OPPs with a frequency of 2600~MHz.
+The data we collected shows that the mean critical voltage for 2600~MHz
+is $-230.4$~mV. Thus, we decide that the voltage offset of our stable OPP
+should be greater than (i.e. more positive than) $-230.4$~mV, and that of the
+unstable OPP should be less than (i.e. more negative than) $-230.4$~mV.
+
+In order to perform steps \ref{item:stableOPP} and \ref{item:induceFault}, we
+need the ability to alter the voltage scaling parameters of the CPU. Using the
+\code{undervolt} utility discussed in §\ref{sec:undervolt} will not afford us the
+timing precision required to execute step \ref{item:induceFault} briefly enough
+to induce a fault without completely crashing the system. As such, we opt to
+write our own program which will alter the voltage scaling paramters in a
+suitably brief manner, which requires us to be able to write to the necessary
+MSR as discussed in §\ref{sec:undervolt}. This is ultimately done via execution
+of the \code{WRMSR} assembly instruction of the x86
+architecture~\cite[Vol. 2, §4.4]{intelDevManual}. Since this instruction
+must be executed at privilege level 0 or in real-address mode, we cannot
+execute it from userspace; we need to do so in kernel mode. We therefore write
+a custom kernel module to set the voltage offset at the necessary times.
+
+We take the approach of simply demonstrating that successful fault injection is
+possible, rather than developing a fully-formed attack on a program running in
+userspace. That is, we could develop a malicious kernel module which lies in
+wait until a hash computation begins in userspace, e.g. an
+instance of GnuPG's \code{sha1sum} program begins running. Upon detecting that
+such a program is running, the kernel module would have to correctly time the
+execution of step \ref{item:induceFault} as discussed in~\cite[§3.5]{clkscrew}.
+Instead, we take the less complex approach of adapting the source code of
+\code{sha1sum}~\cite{gnupgSHA} into a kernel module which, when inserted into
+the kernel, performs steps \ref{item:stableOPP}, \ref{item:beginSHA}, and
+\ref{item:induceFault}, all in kernel mode. In this way, we can directly add
+instructions to the \code{sha1sum} source code to alter the core voltage at
+the necessary times. The details of the kernel module we developed for this
+purpose, dubbed \code{bad\_sha}, are given in §\ref{sec:bad-sha}. We experiment
+with the following parameters:
+
+\begin{itemize}
+    \item the voltage offset of the chosen stable OPP;
+    \item the voltage offset of the chosen unstable OPP; and
+    \item the amount of time in which the unstable OPP is used;
+\end{itemize}
+and we see that we can successfully induce a fault around $2\%$ of
+the time when we use $-225$~mV for the stable OPP, $-234$~mV for the unstable
+OPP, and the unstable OPP is in use whilst five (5) 32-bit W-blocks are processed
+during the SHA-1 hash computation (where a W-block is defined as in~\cite[§6.1]{rfcSHA}).
+
+

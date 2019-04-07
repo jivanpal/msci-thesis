@@ -1,7 +1,9 @@
 /* SHA-1 code is taken from GnuPG 1.3.92 */
 #define KERN_MSG KERN_ALERT KBUILD_MODNAME ": "
 
+/* Voltage offset of chosen stable OPP, in units of 1/1024 volts. */
 #define STABLE_VOLTAGE (-230)
+/* Voltage offset of chosen unstable OPP, in units of 1/1024 volts. */
 #define UNSTABLE_VOLTAGE (-240)
 
 #include <linux/kernel.h>
@@ -37,16 +39,13 @@ static void transform(SHA1_CONTEXT *hd, unsigned char *data)
     hd->h4 += e;
 }
 
-/* Get the lowercase hexadecimal digit correponding to
- * a given number that is between 0 and 15 (inclusive). */
+/* Get the lowercase hexadecimal digit correponding to a given number that is between 0 and 15 (inclusive). */
 char digit_to_hex(int n)
 {
     return n < 10 ? '0' + n : 'a' + n - 10;
 }
 
-/* Put the hash described by the given SHA-1 context `ctx`
- * into the string `hash`. `hash` must point to a buffer
- * with sufficient memory allocated (at least 41 bytes). */
+/* Put the hash described by the given SHA-1 context `ctx` into the string `hash`. `hash` must point to a buffer with sufficient memory allocated (at least 41 bytes). */
 void hash_from_context(char *hash, SHA1_CONTEXT ctx)
 {
     int i;
@@ -60,8 +59,7 @@ void hash_from_context(char *hash, SHA1_CONTEXT ctx)
     hash[40] = '\0';
 }
 
-/* Compute the SHA-1 hash of the file at path
- * `filename` and print it via `printk()`. */
+/* Compute the SHA-1 hash of the file at path `filename` and print it via `printk()`. */
 int main_routine(char* filename)
 {
     struct file *fp;

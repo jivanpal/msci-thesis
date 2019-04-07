@@ -1,14 +1,17 @@
 \chapter{Methodology}
 
-In this section, we discuss the interfaces available to us that allow us to set
+In this chapter, we discuss the interfaces available to us that allow us to set
 DVFS parameters. We determine those OPPs which render the system unstable, and
-then use the acquired information in §\ref{sec:tools} to develop the previously
-mentioned kernel module in order to try and induce and witness a computational
-fault. Throughout this paper, the testbench we use is an Intel Core i5-4590
-desktop computer running Arch Linux with Linux kernel version 5.0.4.
+then use the acquired information in §\ref{sec:observing-fault} to develop a
+kernel module which alters the DVFS parameters at appropriate times in order to
+induce a computational fault which we can observe. Throughout this report, the
+testbench we use is an Intel Core i5-4590 desktop computer running Arch Linux
+with Linux kernel version 5.0.4.
 
 \subimport{available-dvfs-interfaces/}{main}
 
 \input{determining-unstable-opps}
+
+\input{observing-fault}
 
 \input{tools}
