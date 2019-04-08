@@ -6,7 +6,7 @@ i.e. those in which the system operates normally and those which cause the syste
 to crash, respectively. Such a crash typically manifests as a kernel panic.
 In particular, we would like to know which specific OPPs lie on the boundary
 between the stable realm and the unstable realm. Henceforth, such an OPP is
-referred to as a \textit{crtitical point}, and the voltage offset associated
+referred to as a \textit{critical point}, and the voltage offset associated
 with a critical point is called the \textit{critical voltage} of the frequency
 associated with that same critical point. The following basic process lays out
 how we can determine these critical points:
@@ -14,7 +14,7 @@ how we can determine these critical points:
 \begin{enumerate}
     \item \label{item:chooseFreq} Choose a frequency that has not yet been
         chosen from the set of possible frequencies, and set that as the current
-        CPU frequency. If no previously unchosen frequency exists, we are done,
+        CPU frequency. If no previously unchosen frequency exists, we are done
         and have determined all the critical points.
     \item \label{item:computeSHA} Perform some fixed computational task, e.g.
         compute the SHA-1 hash of some predefined data. If the system crashes,
@@ -37,7 +37,7 @@ reasons:
 
 \begin{itemize}
     \item any data that ought to be written to disk may not actually be flushed
-        from memory to disk before the sytem encounters a kernel panic, 
+        from memory to disk before the system encounters a kernel panic,
         resulting in loss of these data; and
     \item the system does not always reboot after encountering a kernel panic,
         contrary to the operating system's intended function of rebooting 30
@@ -55,7 +55,7 @@ discuss in §\ref{sec:cpupower} and §\ref{sec:undervolt}, respectively.
 The \code{undervolt} utility expects voltage offsets to be expressed in
 millivolts (mV, units of $\frac{1}{1000}$~volts) rather than the MSR interface's
 expected units of $\frac{1}{1024}$~volts. It then rounds the value given in
-millivolts to the nearest multiple of $\frac{1}{1024}$~volts, and writes the
+millivolts to the nearest multiple of $\frac{1}{1024}$~volts and writes the
 appropriate value to the MSR. As such, the "smallest possible amount" mentioned
 in step~\ref{item:undervolt} of the process above is taken as 1~mV rather than
 $\frac{1}{1024}$~volts. The process we end up using is described by the

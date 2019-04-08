@@ -33,13 +33,13 @@ need the ability to alter the voltage scaling parameters of the CPU. Using the
 \code{undervolt} utility discussed in §\ref{sec:undervolt} will not afford us the
 timing precision required to execute step \ref{item:induceFault} briefly enough
 to induce a fault without completely crashing the system. As such, we opt to
-write our own program which will alter the voltage scaling paramters in a
+write our own program which will alter the voltage scaling parameters in a
 suitably brief manner, which requires us to be able to write to the necessary
 MSR as discussed in §\ref{sec:undervolt}. This is ultimately done via execution
 of the \code{WRMSR} assembly instruction of the x86
 architecture~\cite[Vol. 2, §4.4]{intelDevManual}. Since this instruction
 must be executed at privilege level 0 or in real-address mode, we cannot
-execute it from userspace; we need to do so in kernel mode. We therefore write
+execute it from userspace; we need to do so in kernel mode. Therefore, we write
 a custom kernel module to set the voltage offset at the necessary times.
 
 We take the approach of simply demonstrating that successful fault injection is

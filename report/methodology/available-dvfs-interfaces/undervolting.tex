@@ -12,7 +12,7 @@ also not officially documented by Intel in~\cite[Vol. 4, §2.13]{intelDevManual}
 as would be expected.
 
 Using this interface, it is possible to adjust the voltage offset from the base
-voltage in units of $\frac{1}{1024}$~volts. The MSR uses an 11-bit signed 
+voltage in units of $\frac{1}{1024}$~volts. The MSR uses an 11-bit signed
 integer to describe the offset from the base voltage in these units, thus
 allowing a maximum voltage offset of $\pm{1}$~volts. A front-end utility called
 \code{undervolt}~\cite{whewellUndervolt} has been developed in Python to more
