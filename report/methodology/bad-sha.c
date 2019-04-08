@@ -111,5 +111,5 @@ static void __exit mod_exit(void)
 module_exit(mod_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Navjivan Pal - jivanpal.com");
+MODULE_AUTHOR("Navjivan Pal");
 MODULE_DESCRIPTION("Compute SHA-1 hash of `/tmp/._shatest_data` in kernel mode");
