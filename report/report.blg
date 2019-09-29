@@ -1,0 +1,64 @@
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: report.aux
+The style file: biblatex.bst
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: report-blx.bib
+Database file #2: references.bib
+Biblatex version: 3.11
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 17 entries,
+            6304 wiz_defined-function locations,
+            1271 strings with 11659 characters,
+and the built_in function-call counts, 89988 in all, are:
+= -- 4444
+> -- 5618
+< -- 574
++ -- 4944
+- -- 4158
+* -- 4734
+:= -- 10505
+add.period$ -- 0
+call.type$ -- 17
+change.case$ -- 168
+chr.to.int$ -- 418
+cite$ -- 32
+duplicate$ -- 8112
+empty$ -- 7590
+format.name$ -- 773
+if$ -- 15863
+int.to.chr$ -- 0
+int.to.str$ -- 38
+missing$ -- 0
+newline$ -- 411
+num.names$ -- 682
+pop$ -- 5316
+preamble$ -- 1
+purify$ -- 225
+quote$ -- 0
+skip$ -- 2789
+stack$ -- 0
+substring$ -- 7868
+swap$ -- 2212
+text.length$ -- 472
+text.prefix$ -- 0
+top$ -- 1
+type$ -- 566
+warning$ -- 0
+while$ -- 1062
+width$ -- 0
+write$ -- 395

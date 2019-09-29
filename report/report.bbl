@@ -1,0 +1,419 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.0 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{clkscrew}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=eaAT}{%
+         prefix={et},
+         prefixi={e\bibinitperiod},
+         family={al.},
+         familyi={a\bibinitperiod},
+         given={Adrian\bibnamedelima Tang},
+         giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{aATe1}
+    \strng{fullhash}{aATe1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Proceedings of the 26th USENIX Security Symposium}
+    \field{isbn}{978-1-931971-40-9}
+    \field{title}{\clkscrew{}: Exposing the Perils of Security-Oblivious Energy
+  Management}
+    \verb{url}
+    \verb https://www.usenix.org/system/files/conference/usenixsecurity17/sec17
+    \verb -tang.pdf
+    \endverb
+    \field{year}{2017}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{rowhammer}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=eaYK}{%
+         prefix={et},
+         prefixi={e\bibinitperiod},
+         family={al.},
+         familyi={a\bibinitperiod},
+         given={Yoongu\bibnamedelima Kim},
+         giveni={Y\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{aYKe1}
+    \strng{fullhash}{aYKe1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Flipping Bits in Memory Without Accessing Them: An
+  Experimental Study of DRAM Disturbance Errors}
+    \verb{url}
+    \verb http://users.ece.cmu.edu/~yoonguk/papers/kim-isca14.pdf
+    \endverb
+    \list{institution}{2}{%
+      {Carnegie Mellon University}%
+      {Intel Labs}%
+    }
+    \field{year}{2014}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{blacklistCore}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=S}{%
+         family={{Sheng Zhang, Adrian Tang et al.}},
+         familyi={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{S1}
+    \strng{fullhash}{S1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Blacklist Core: Machine-Learning Based Dynamic
+  Operating-Performance-Point Blacklisting for Mitigating Power-Management
+  Security Attacks}
+    \verb{url}
+    \verb http://0x0atang.github.io/files/islped18_blcore.pdf
+    \endverb
+    \list{institution}{1}{%
+      {Columbia University}%
+    }
+    \field{year}{2018}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{securityOfSGX}{online}{}
+    \name{author}{1}{}{%
+      {{hash=LY}{%
+         family={Lindell},
+         familyi={L\bibinitperiod},
+         given={Yehuda},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LY1}
+    \strng{fullhash}{LY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{The Security of Intel SGX for Key Protection and Data Privacy
+  Applications}
+    \verb{url}
+    \verb https://cdn2.hubspot.net/hubfs/1761386/security-of-intelsgx-key-prote
+    \verb ction-data-privacy-apps.pdf
+    \endverb
+    \field{year}{2018}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{tunstallDFA}{online}{}
+    \name{author}{1}{}{%
+      {{hash=eaMT}{%
+         prefix={et},
+         prefixi={e\bibinitperiod},
+         family={al.},
+         familyi={a\bibinitperiod},
+         given={Michael\bibnamedelima Tunstall},
+         giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{aMTe1}
+    \strng{fullhash}{aMTe1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Differential Fault Analysis of the Advanced Encryption
+  Standard using a Single Fault}
+    \verb{url}
+    \verb https://eprint.iacr.org/2009/575.pdf
+    \endverb
+    \field{year}{2009}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{linuxCPUScaling}{online}{}
+    \name{author}{2}{}{%
+      {{hash=LR}{%
+         family={Landley},
+         familyi={L\bibinitperiod},
+         given={Rob},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=t}{%
+         family={{the Linux Kernel Organisation, Inc.}},
+         familyi={t\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LRt1}
+    \strng{fullhash}{LRt1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{CPU Performance Scaling — The Linux Kernel Documentation}
+    \verb{url}
+    \verb https://www.kernel.org/doc/html/v5.0/admin-guide/pm/cpufreq.html
+    \endverb
+    \field{year}{2019}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{intelDevManual}{online}{}
+    \name{author}{1}{}{%
+      {{hash=CI}{%
+         family={Corporation},
+         familyi={C\bibinitperiod},
+         given={Intel},
+         giveni={I\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CI1}
+    \strng{fullhash}{CI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Intel 64 and IA-32 Architectures Software Developer's Manual}
+    \verb{url}
+    \verb https://software.intel.com/sites/default/files/managed/39/c5/325462-s
+    \verb dm-vol-1-2abcd-3abcd.pdf
+    \endverb
+    \field{year}{2019}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{linuxIntelPState}{online}{}
+    \name{author}{2}{}{%
+      {{hash=LR}{%
+         family={Landley},
+         familyi={L\bibinitperiod},
+         given={Rob},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=t}{%
+         family={{the Linux Kernel Organisation, Inc.}},
+         familyi={t\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LRt1}
+    \strng{fullhash}{LRt1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{intel\_pstate CPU Performance Scaling Driver — The Linux
+  Kernel Documentation}
+    \verb{url}
+    \verb https://www.kernel.org/doc/html/v5.0/admin-guide/pm/intel_pstate.html
+    \endverb
+    \field{year}{2019}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{archFrequency}{online}{}
+    \name{author}{1}{}{%
+      {{hash=A}{%
+         family={ArchWiki},
+         familyi={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{A1}
+    \strng{fullhash}{A1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{CPU frequency scaling}
+    \verb{url}
+    \verb https://wiki.archlinux.org/index.php/CPU_frequency_scaling
+    \endverb
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{cpuSpecs}{online}{}
+    \name{author}{1}{}{%
+      {{hash=CI}{%
+         family={Corporation},
+         familyi={C\bibinitperiod},
+         given={Intel},
+         giveni={I\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CI1}
+    \strng{fullhash}{CI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Intel® Core™ i5-4590 Processor Product Specifications}
+    \verb{url}
+    \verb https://ark.intel.com/content/www/us/en/ark/products/80815/intel-core
+    \verb -i5-4590-processor-6m-cache-up-to-3-70-ghz.html
+    \endverb
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{throttlestop}{online}{}
+    \name{author}{1}{}{%
+      {{hash=cU}{%
+         family={\code{unclewebb}},
+         familyi={c\bibinitperiod},
+         given={Username},
+         giveni={U\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{cU1}
+    \strng{fullhash}{cU1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{The ThrottleStop Guide | Notebook Review}
+    \verb{url}
+    \verb http://forum.notebookreview.com/threads/the-throttlestop-guide.531329
+    \verb /
+    \endverb
+    \field{year}{2010}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{elersicDoc}{online}{}
+    \name{author}{1}{}{%
+      {{hash=EM}{%
+         family={Eleršič},
+         familyi={E\bibinitperiod},
+         given={Miha},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{EM1}
+    \strng{fullhash}{EM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{mihic/linux-intel-undervolt: Guide to linux undervolting for
+  Haswell and newer Intel CPUs}
+    \verb{url}
+    \verb https://github.com/mihic/linux-intel-undervolt
+    \endverb
+    \field{year}{2017}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{whewellUndervolt}{online}{}
+    \name{author}{1}{}{%
+      {{hash=WG}{%
+         family={Whewell},
+         familyi={W\bibinitperiod},
+         given={George},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WG1}
+    \strng{fullhash}{WG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{georgewhewell/undervolt: Undervolt Intel CPUs under Linux}
+    \verb{url}
+    \verb https://github.com/georgewhewell/undervolt
+    \endverb
+    \field{year}{2017}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{gnupgSHA}{online}{}
+    \name{author}{2}{}{%
+      {{hash=F}{%
+         family={{Free Software Foundation, Inc.}},
+         familyi={F\bibinitperiod},
+      }}%
+      {{hash=gG}{%
+         prefix={g10\textsuperscript{CODE}},
+         prefixi={g\bibinitperiod},
+         family={GmbH},
+         familyi={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FGg1}
+    \strng{fullhash}{FGg1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{sha1sum.c - GnuPG 1.3.92}
+    \verb{url}
+    \verb ftp://ftp.gnupg.org/gcrypt/binary/sha1sum.c
+    \endverb
+    \field{year}{2001}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{rfcSHA}{online}{}
+    \name{author}{1}{}{%
+      {{hash=I}{%
+         family={IETF},
+         familyi={I\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{I1}
+    \strng{fullhash}{I1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{RFC 3174 - US Secure Hash Algorithm 1 (SHA1)}
+    \verb{url}
+    \verb https://tools.ietf.org/html/rfc3174
+    \endverb
+    \field{year}{2001}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{aesni}{online}{}
+    \name{author}{1}{}{%
+      {{hash=J}{%
+         family={{Jeffrey Rott, Intel Corporation}},
+         familyi={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{J1}
+    \strng{fullhash}{J1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Intel® Advanced Encryption Standard Instructions (AES-NI)}
+    \verb{url}
+    \verb https://software.intel.com/en-us/articles/intel-advanced-encryption-s
+    \verb tandard-instructions-aes-ni
+    \endverb
+    \field{year}{2012}
+    \field{urlday}{08}
+    \field{urlmonth}{04}
+    \field{urlyear}{2019}
+  \endentry
+\enddatalist
+\endinput

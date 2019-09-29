@@ -1,0 +1,42 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/bin/bash}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} The voltage offsets to test will be fetched from}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} `undervolt\PYGZhy{}list\PYGZhy{}f.txt`, where `f` is the specified}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} frequency in MHz.}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} The optional \PYGZsq{}all\PYGZsq{} argument causes `undervolt\PYGZhy{}list.txt`}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} to be used as the list of voltage offsets to test. This}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} file is intended to have an exhaustive list of voltage}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} offsets.}
+
+. common.sh
+
+\PYG{k}{if} \PYG{o}{[[} \PYG{n+nv}{\PYGZdl{}\PYGZsh{}} \PYGZhy{}ne \PYG{l+m}{1} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n+nv}{\PYGZdl{}\PYGZsh{}} \PYGZhy{}ne \PYG{l+m}{2} \PYG{o}{]]} \PYG{p}{;} \PYG{k}{then}
+    \PYGZgt{}\PYG{p}{\PYGZam{}}\PYG{l+m}{2} \PYG{n+nb}{echo} \PYG{l+s+s2}{\PYGZdq{}Incorrect number of arguments\PYGZdq{}}
+    \PYGZgt{}\PYG{p}{\PYGZam{}}\PYG{l+m}{2} \PYG{n+nb}{echo} \PYG{l+s+s2}{\PYGZdq{}Usage: }\PYG{n+nv}{\PYGZdl{}0}\PYG{l+s+s2}{ \PYGZlt{}frequency in MHz\PYGZgt{} [all]\PYGZdq{}}
+    \PYG{n+nb}{exit} \PYG{l+m}{1}
+\PYG{k}{fi}
+
+\PYG{n+nv}{cpu\PYGZus{}frequency}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{n+nv}{\PYGZdl{}1}\PYG{l+s+s2}{\PYGZdq{}}
+
+\PYG{n+nv}{all\PYGZus{}flag}\PYG{o}{=}\PYG{l+m}{0}
+\PYG{k}{if} \PYG{o}{[[} \PYG{n+nv}{\PYGZdl{}\PYGZsh{}} \PYGZhy{}eq \PYG{l+m}{2} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n+nv}{\PYGZdl{}2} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}all\PYGZdq{}} \PYG{o}{]]} \PYG{p}{;} \PYG{k}{then}
+ \PYG{n+nv}{all\PYGZus{}flag}\PYG{o}{=}\PYG{l+m}{1}
+\PYG{k}{fi}
+
+\PYG{n+nv}{voltages\PYGZus{}list}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}undervolt\PYGZhy{}list\PYGZhy{}}\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nv}{cpu\PYGZus{}frequency}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{.txt\PYGZdq{}}
+\PYG{k}{if} \PYG{o}{[} \PYG{n+nv}{\PYGZdl{}all\PYGZus{}flag} \PYGZhy{}eq \PYG{l+m}{1} \PYG{o}{]} \PYG{p}{;} \PYG{k}{then}
+  \PYG{n+nv}{voltages\PYGZus{}list}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}undervolt\PYGZhy{}list.txt\PYGZdq{}}
+\PYG{k}{fi}
+
+cpupower frequency\PYGZhy{}set \PYGZhy{}f \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nv}{cpu\PYGZus{}frequency}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{MHz\PYGZdq{}}
+
+\PYG{k}{while} \PYG{n+nv}{IFS}\PYG{o}{=} \PYG{n+nb}{read} \PYGZhy{}r voltage\PYG{p}{;} \PYG{k}{do}
+  \PYG{o}{(}
+    undervolt \PYGZhy{}\PYGZhy{}core \PYG{l+s+s2}{\PYGZdq{}}\PYG{n+nv}{\PYGZdl{}voltage}\PYG{l+s+s2}{\PYGZdq{}} \PYGZhy{}\PYGZhy{}cache \PYG{l+s+s2}{\PYGZdq{}}\PYG{n+nv}{\PYGZdl{}voltage}\PYG{l+s+s2}{\PYGZdq{}}
+    shasum \PYGZhy{}b \PYGZhy{}a \PYG{l+m}{1} .\PYGZus{}shatest\PYGZus{}data \PYG{p}{|} \PYG{o}{(}\PYG{n+nb}{echo} \PYGZhy{}n \PYG{l+s+s2}{\PYGZdq{}}\PYG{n+nv}{\PYGZdl{}voltage}\PYG{l+s+s2}{ \PYGZdq{}} \PYG{o}{\PYGZam{}\PYGZam{}} cat\PYG{o}{)}
+    undervolt \PYGZhy{}\PYGZhy{}core \PYG{l+m}{0} \PYGZhy{}\PYGZhy{}cache \PYG{l+m}{0}
+  \PYG{o}{)}
+\PYG{k}{done} \PYGZlt{} \PYG{l+s+s2}{\PYGZdq{}}\PYG{n+nv}{\PYGZdl{}voltages\PYGZus{}list}\PYG{l+s+s2}{\PYGZdq{}}
+\end{Verbatim}

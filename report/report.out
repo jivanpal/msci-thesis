@@ -1,0 +1,21 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction and background}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Role of power management in modern CPUs}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Dynamic voltage and frequency scaling \(DVFS\)}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Security issues due to DVFS}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.4}{Contribution and outline}{chapter.1}% 5
+\BOOKMARK [0][-]{chapter.2}{Related work}{}% 6
+\BOOKMARK [1][-]{section.2.1}{CLKSCREW}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.2}{Blacklist Core}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.3}{The Security of Intel Software Guard Extensions \(SGX\)}{chapter.2}% 9
+\BOOKMARK [0][-]{chapter.3}{Methodology}{}% 10
+\BOOKMARK [1][-]{section.3.1}{Available DVFS interfaces}{chapter.3}% 11
+\BOOKMARK [2][-]{subsection.3.1.1}{Frequency scaling}{section.3.1}% 12
+\BOOKMARK [2][-]{subsection.3.1.2}{Voltage scaling}{section.3.1}% 13
+\BOOKMARK [1][-]{section.3.2}{Determining the stability of operating performance points}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.3}{Demonstrating the viability of power management attacks}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.4}{Tools}{chapter.3}% 16
+\BOOKMARK [2][-]{subsection.3.4.1}{Shell script}{section.3.4}% 17
+\BOOKMARK [2][-]{subsection.3.4.2}{Kernel module}{section.3.4}% 18
+\BOOKMARK [0][-]{chapter.4}{Conclusion}{}% 19
+\BOOKMARK [1][-]{section.4.1}{Summary and discussion}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.2}{Future work}{chapter.4}% 21

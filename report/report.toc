@@ -1,0 +1,48 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {english}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introduction and background}{2}{chapter.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Role of power management in modern CPUs}{2}{section.1.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Dynamic voltage and frequency scaling (DVFS)}{2}{section.1.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.3}Security issues due to DVFS}{2}{section.1.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.4}Contribution and outline}{2}{section.1.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Related work}{3}{chapter.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}CLK\textsmaller {SCREW}{}}{3}{section.2.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Blacklist Core}{3}{section.2.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}The Security of Intel Software Guard Extensions (SGX)}{4}{section.2.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Methodology}{4}{chapter.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Available DVFS interfaces}{4}{section.3.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.1}Frequency scaling}{4}{subsection.3.1.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{CPU performance scaling in the Linux kernel}{4}{subsection.3.1.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Setting the CPU frequency}{4}{subsection.3.1.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.2}Voltage scaling}{5}{subsection.3.1.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Determining the stability of operating performance points}{5}{section.3.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Demonstrating the viability of power management attacks}{6}{section.3.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.4}Tools}{7}{section.3.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.1}Shell script}{7}{subsection.3.4.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.2}Kernel module}{8}{subsection.3.4.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Conclusion}{10}{chapter.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Summary and discussion}{10}{section.4.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Future work}{10}{section.4.2}% 
